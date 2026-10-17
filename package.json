@@ -1,0 +1,23 @@
+{
+  "name": "rustingcraft-website",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build && pagefind --site dist",
+    "preview": "astro preview",
+    "sync-game": "node scripts/sync-game.mjs"
+  },
+  "dependencies": {
+    "@fontsource/chakra-petch": "^5.3.0",
+    "@fontsource/ibm-plex-sans": "^5.3.0",
+    "@fontsource/jetbrains-mono": "^5.3.0",
+    "astro": "^7.3.5",
+    "pagefind": "^1.5.2",
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "@types/three": "^0.186.0",
+    "playwright-core": "^1.63.0"
+  }
+}

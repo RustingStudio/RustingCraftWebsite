@@ -1,0 +1,35 @@
+---
+import Page from '../../layouts/Page.astro';
+import { localePaths, localeOf, t, asset } from '../../i18n';
+import shots from '../../data/game/shots.json';
+export const getStaticPaths = localePaths;
+const locale = localeOf(Astro.params.locale);
+const d = t(locale), p = d.media;
+// Posters are stills from the same milestone (see scripts/sync-game.mjs).
+const videos = [[0, 'sunset'], [1, 'forest']].map(([m, still]) => ({ m, src: asset(`/game/M${m}.mp4`), poster: asset(`/game/shots/${still}.webp`), title: d.milestones[m as number][0] }));
+// A capture's label is its file in the game: 'M1/daynight_dusk.png' -> M1 · daynight dusk.
+const stills = Object.entries(shots).map(([key, src]) => {
+  const [m, file] = src.replace('showcase/', '').replace(/^(M\d)_/, '$1/').split('/');
+  return { key, m, label: file.replace(/\.png$/, '').replace(/_0\d$/, '').replace(/_/g, ' ') };
+}).sort((a, b) => b.m.localeCompare(a.m));
+---
+<Page locale={locale} active="media" biome="deep" kicker="RustingCraft" title={p.title} lede={p.lede}>
+  <h2 class="gr-section-h">{p.videos}</h2>
+  <div class="rc-grid rc-grid-wide">
+    {videos.map((v) => (
+      <figure class="rc-card-media">
+        <video src={v.src} poster={v.poster} controls muted playsinline preload="metadata"></video>
+        <div><small>{p.caption} M{v.m}</small><b>{v.title}</b></div>
+      </figure>
+    ))}
+  </div>
+  <h2 class="gr-section-h">{p.stills}</h2>
+  <div class="rc-grid">
+    {stills.map((s) => (
+      <a class="rc-card-media" href={asset(`/game/shots/${s.key}.webp`)}>
+        <img src={asset(`/game/shots/${s.key}.webp`)} alt={`${s.m}: ${s.label}`} loading="lazy" decoding="async" />
+        <div><small>{s.m}</small><p>{s.label}</p></div>
+      </a>
+    ))}
+  </div>
+</Page>

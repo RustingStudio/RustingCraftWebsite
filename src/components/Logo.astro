@@ -1,0 +1,13 @@
+---
+// Same geometry as design-system/assets/Logos/RustingStudio.svg; never redraw it.
+interface Props { size?: number; wordmark?: boolean; href?: string; class?: string }
+const { size = 32, wordmark, href, class: cls } = Astro.props;
+const Tag = href ? 'a' : 'span';
+---
+<Tag class:list={['gr-logo', cls]} href={href} aria-label={href ? 'RustingCraft home' : undefined}>
+  <svg width={size} height={size} viewBox="0 0 256 256" role={wordmark ? undefined : 'img'} aria-label={wordmark ? undefined : 'RustingCraft'} aria-hidden={wordmark ? 'true' : undefined}>
+    <path d="M40 28H164L212 76V120L172 160H128L220 228H160L84 158V228H40ZM84 72V116H150L168 98V90L150 72Z" fill="var(--copper)" fill-rule="evenodd" />
+    <path d="M108 28H140V72H108Z" fill="var(--ink)" />
+  </svg>
+  {wordmark && <span class="gr-logo-word" style={`font-size:${Math.round(size * 0.62)}px`}>Rusting<b>Craft</b></span>}
+</Tag>

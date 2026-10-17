@@ -1,0 +1,109 @@
+---
+import '../styles/global.css';
+import '../styles/craft.css';
+import Icon from '../components/Icon.astro';
+import { LOCALES, t, asset, switchTo, type Locale } from '../i18n';
+interface Props { locale: Locale; title?: string; description?: string; biome?: string }
+const { locale, title, description, biome = 'meadow' } = Astro.props;
+const d = t(locale);
+const full = title ? `${title} · RustingCraft` : 'RustingCraft: voxel survival in Rust and Vulkan';
+const desc = description ?? d.meta.description;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const og = new URL(asset('/og.png'), Astro.site);
+---
+<!doctype html>
+<html lang={locale} data-theme={biome}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{full}</title>
+    <meta name="description" content={desc} />
+    <link rel="canonical" href={canonical} />
+    {LOCALES.map((l) => <link rel="alternate" hreflang={l} href={new URL(switchTo(Astro.url.pathname, l), Astro.site)} />)}
+    <link rel="alternate" hreflang="x-default" href={new URL(switchTo(Astro.url.pathname, 'en'), Astro.site)} />
+    <link rel="icon" type="image/svg+xml" href={asset('/favicon.svg')} />
+    <meta name="theme-color" content="#16191d" />
+    <meta name="color-scheme" content="dark" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="RustingCraft" />
+    <meta property="og:title" content={full} />
+    <meta property="og:description" content={desc} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={{ en: 'en_US', de: 'de_DE', ru: 'ru_RU' }[locale]} />
+    <meta property="og:image" content={og} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={og} />
+  </head>
+  <body class="gr-root" data-atlas={asset('/game/atlas.png')}>
+    <div class="rc-world" aria-hidden="true"><canvas id="rc-world"></canvas></div>
+    <a class="gr-skip" href="#main">{d.meta.skip}</a>
+    <slot />
+    <dialog class="gr-search-dialog gr-root" id="gr-search" aria-label={d.nav.searchLabel}>
+      <button class="gr-btn gr-btn-ghost gr-search-close" type="button" aria-label={d.nav.close} data-close><Icon name="close" /></button>
+      <div id="gr-search-ui"></div>
+    </dialog>
+    <script>
+      // Which biome is in view: the [data-biome] section crossing the middle of the screen.
+      // It sets the page accent at once and tells the 3D world, which loads when the browser is idle.
+      import type { View } from '../scene/world';
+      const root = document.documentElement;
+      const sections = [...document.querySelectorAll<HTMLElement>('[data-biome]')];
+      const view: View = { biome: root.dataset.theme || 'meadow', side: 'left', visible: true };
+      const send = () => dispatchEvent(new CustomEvent('rc:biome', { detail: { ...view } }));
+      const pick = (el: HTMLElement) => {
+        view.biome = el.dataset.biome!;
+        view.side = (el.dataset.side as View['side']) || 'left';
+        root.dataset.theme = view.biome;
+        send();
+      };
+      if (sections[0]) pick(sections[0]);
+      const middle = new IntersectionObserver((es) => es.forEach((e) => e.isIntersecting && pick(e.target as HTMLElement)), { rootMargin: '-50% 0px -50% 0px' });
+      const seen = new Set<Element>();
+      const shown = new IntersectionObserver((es) => {
+        es.forEach((e) => (e.isIntersecting ? seen.add(e.target) : seen.delete(e.target)));
+        if (view.visible !== seen.size > 0) { view.visible = seen.size > 0; send(); }
+      });
+      sections.forEach((s) => { middle.observe(s); shown.observe(s); });
+
+      const canvas = document.getElementById('rc-world') as HTMLCanvasElement;
+      const gl = (() => { try { return !!canvas.getContext('webgl2'); } catch { return false; } })();
+      const fail = () => root.classList.add('no-webgl');
+      if (!gl || !sections.length) fail();
+      else {
+        const go = () => import('../scene/world').then((m) => m.start(canvas, document.body.dataset.atlas!, view)).catch((e) => { console.error(e); fail(); });
+        if ('requestIdleCallback' in window) requestIdleCallback(go, { timeout: 1200 }); else setTimeout(go, 300);
+      }
+    </script>
+    <script>
+      // Search: Pagefind UI, loaded the first time the dialog opens (the index exists only after `npm run build`).
+      const dialog = document.getElementById('gr-search') as HTMLDialogElement;
+      const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+      let loaded: Promise<void> | undefined;
+      const load = () => loaded ??= new Promise<void>((done, fail) => {
+        const css = Object.assign(document.createElement('link'), { rel: 'stylesheet', href: `${base}pagefind/pagefind-ui.css` });
+        const js = Object.assign(document.createElement('script'), { src: `${base}pagefind/pagefind-ui.js` });
+        js.onload = () => { new (window as any).PagefindUI({ element: '#gr-search-ui', showSubResults: true, showImages: false, baseUrl: base }); done(); };
+        js.onerror = () => { document.getElementById('gr-search-ui')!.textContent = 'Search is available on the built site.'; fail(); };
+        document.head.append(css, js);
+      });
+      const open = async () => {
+        document.querySelectorAll<HTMLElement>(':popover-open').forEach((p) => p.hidePopover());
+        dialog.showModal();
+        await load().catch(() => {});
+        dialog.querySelector<HTMLInputElement>('input')?.focus();
+      };
+      document.addEventListener('click', (e) => {
+        const t = e.target as Element;
+        if (t.closest('[data-search]')) open();
+        else if (t.closest('[data-close]') || t === dialog) dialog.close();
+      });
+      document.addEventListener('keydown', (e) => {
+        const typing = (e.target as Element).closest('input, textarea, select, [contenteditable]');
+        if ((e.key === 'k' && (e.ctrlKey || e.metaKey)) || (e.key === '/' && !typing)) {
+          e.preventDefault();
+          if (!dialog.open) open();
+        }
+      });
+    </script>
+  </body>
+</html>

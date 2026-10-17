@@ -1,0 +1,146 @@
+{
+  "lang": "English",
+  "meta": {
+    "description": "RustingCraft is a voxel survival game in Rust and Vulkan: start with your fists, earn every ability in 14 skill trees, play alone or with up to 7 friends.",
+    "skip": "Skip to content"
+  },
+  "nav": {
+    "home": "Home", "wiki": "Wiki", "devlog": "Devlog", "roadmap": "Roadmap", "server": "Server", "media": "Media",
+    "download": "Download", "menu": "Open menu", "language": "Language", "search": "Search", "searchLabel": "Search the site", "close": "Close search"
+  },
+  "status": { "inDev": "In development", "planned": "Planned", "inGame": "In game", "done": "Done", "now": "In progress", "next": "Next", "iteration": "iteration" },
+  "home": {
+    "hero": {
+      "kicker": "Voxel survival / Rust / Vulkan",
+      "tagline": "Start with your fists. Earn everything else.",
+      "lede": "A block world to mine, build, farm, fish and fight in, alone or with up to seven friends. You start weak, and every ability is earned in fourteen skill trees.",
+      "devlog": "Read the devlog", "roadmap": "See the roadmap", "scroll": "Scroll through the biomes"
+    },
+    "skills": {
+      "kicker": "Skills", "title": "Every ability is <b>earned</b>",
+      "lede": "Any activity gives general XP. Player levels give skill points, a point unlocks a skill tree, and an unlocked skill grows only by doing it. Mine iron to become a better miner; harvest wheat to become a better farmer.",
+      "stats": [["14", "", "skill trees"], ["~4", "", "trees one player masters"], ["7", "", "recipes you know at the start"]],
+      "foot": "From the design bible. Numbers may be tuned.",
+      "cta": "All 14 trees"
+    },
+    "world": {
+      "kicker": "World", "title": "A world in <b>rings</b>",
+      "lede": "The world is infinite, and it gets more dangerous and richer the farther you travel from spawn and the deeper you dig: from the meadows around spawn to frost peaks, and down into the Deep below y = −64.",
+      "stats": [["384", "blocks", "of world height"], ["5", "", "world tiers"], ["20", "min", "day and night"]],
+      "cta": "Tiers and ores"
+    },
+    "farm": {
+      "kicker": "Farm, fish, cook", "title": "Farm, fish, <b>cook</b>",
+      "lede": "Till farmland, grow thirteen crops and hope for a golden harvest. Read the water, wait for the bite and win the reel. Cook feasts that buff everyone at the table.",
+      "stats": [["13", "", "crops"], ["7", "", "catch rarities"], ["4", "", "trees: Harvest, Fishing, Cooking, Hunting"]]
+    },
+    "coop": {
+      "kicker": "Co-op", "title": "Split the <b>work</b>",
+      "lede": "Solo play runs an integrated server in the same process, the way Minecraft does. Open it to friends, or run a dedicated server on the same code. Skill points are limited, so friends split the roles: the farmer, the smith, the fighter.",
+      "stats": [["8", "", "players per server"], ["1", "", "code path for solo and servers"], ["6", "chars", "room code to join"]],
+      "cta": "Host a server"
+    },
+    "fight": {
+      "kicker": "Mobs and combat", "title": "Danger is <b>readable</b>",
+      "lede": "Hollows walk at night, bone archers keep their distance and bog slimes split when they die. Every hostile makes a sound when it notices you, and every attack has a wind-up you can see.",
+      "tags": ["Crits and knockback", "Perfect block", "Bows and crossbows", "Armour tiers"],
+      "stats": [["8", "", "hostile mobs"], ["0.3–0.6", "s", "attack wind-up"], ["40", "ms", "hit stop"]],
+      "cta": "Mobs"
+    },
+    "bosses": {
+      "kicker": "Bosses", "title": "Five bosses, five <b>gates</b>",
+      "lede": "Summon each boss at its altar with an offering. Its trophy opens the next material tier, from iron to the legendary Hearthforged gear.",
+      "health": "health, one player",
+      "cta": "Bosses"
+    },
+    "graphics": {
+      "kicker": "Graphics", "title": "Shaders and mods, <b>built in</b>",
+      "lede": "Players download shader packs and mods to make block games look better. RustingCraft ships that look by default: clear water with ripples and reflections, glass, a torch that lights the world from your hand, waving plants and hand animations. Four presets from Low to Ultra.",
+      "stats": [["0.06", "ms", "to mesh a 16³ section"], ["5.9", "ms", "frame p95, streaming at a sprint"], ["1.16", "ms", "GPU p50 at 906k triangles"]],
+      "foot": "Measured during M1: release build, RTX 3060, headless 1280 × 720, view distance 8.",
+      "cta": "Captures"
+    },
+    "follow": {
+      "kicker": "Roadmap", "title": "Follow the <b>build</b>",
+      "lede": "RustingCraft is built in the open, milestone by milestone. Every milestone ends with measured numbers and a capture. English, German and Russian from the start, and about sixty achievements to guide you.",
+      "download": "Download", "soon": "Coming soon", "roadmap": "Full roadmap"
+    }
+  },
+  "milestones": [
+    ["Spike", "The voxel path on the engine: meshed sections, walking, break and place."],
+    ["World", "Terrain, five biomes, caves, ores, trees, streaming, light, day and night, water, saves."],
+    ["Server", "Integrated and dedicated server on one code path, prediction, two players together."],
+    ["Survive", "Items, inventory, crafting with gates, health, hunger, death and graves."],
+    ["Skills", "General XP, levels, points, six trees complete, the skill screen."],
+    ["Farm and fish", "Farmland, four crops, fishing with the reel game, campfire cooking."],
+    ["Fight", "Animals, night mobs, pathfinding, melee, shields, bows, armour."],
+    ["Craft and tiers", "Furnace, smithing, bronze, quality, chests, beds, the hearth."],
+    ["First boss", "The Thornback altar, the fight, trophies and the iron gate."],
+    ["First nights", "From a fresh spawn to Thornback dead, on a dedicated server."]
+  ],
+  "roadmap": {
+    "title": "Roadmap", "lede": "Pass A builds the core of every system as milestones M0 to M9. Pass B then builds all of each area, and ends with the release.",
+    "passA": "Pass A: the core", "passB": "Pass B: everything",
+    "passBItems": ["The full world: tiers 2 to 5, all biomes and structures", "All 14 skill trees with every perk", "13 crops, cooking, alchemy, building and homes", "All five bosses", "The built-in shader look and animations", "Menus, settings presets, EN/DE/RU, achievements", "Client and dedicated server builds for Linux and Windows"],
+    "synced": "Status synced from the game repository on"
+  },
+  "download": {
+    "title": "Download", "lede": "There is no public build yet.",
+    "body": "The first playable build follows milestone M9: one run from a fresh spawn to the first boss dead, on a dedicated server with two players. Release builds are planned for Linux and Windows, as a client and a dedicated server.",
+    "platforms": "Planned platforms", "client": "Client", "serverBuild": "Dedicated server",
+    "meanwhile": "Meanwhile", "follow": "Follow the devlog", "watch": "Watch the captures"
+  },
+  "devlog": { "title": "Devlog", "lede": "One post per milestone: what was built, what it measured and what broke.", "read": "Read", "back": "All posts", "enOnly": "" },
+  "server": {
+    "title": "Servers", "lede": "One server, three ways to run it. Solo, co-op and dedicated share the same code.",
+    "planned": "Joining by address works in development builds. Room codes, chat and the server list come later in the plan.",
+    "modes": [
+      ["Solo", "An integrated server runs in the game process with one player and no open port."],
+      ["Open to friends", "Opens the integrated server to the network. Friends join by address and port, or by a 6-character room code through a relay."],
+      ["Dedicated", "The same server code without a window. Run it on a spare machine for up to 8 players."]
+    ],
+    "configTitle": "server.json", "configLede": "Every field and its default.",
+    "config": [
+      ["name", "Server name in the list"], ["max_players", "8"], ["password", "Optional"], ["seed", "World seed"],
+      ["view_distance", "8 chunks sent per player"], ["simulation_distance", "6 chunks of crops, mobs and fluids around each player"],
+      ["difficulty", "Casual, Normal or Hardcore"], ["pvp", "Off"], ["mob_griefing", "Off"], ["xp_rate", "XP multiplier, 1.0"], ["keep_inventory", "Off"]
+    ],
+    "rulesTitle": "The server owns the world",
+    "rules": [
+      "Clients send inputs and requests; the server checks reach, line of sight, tool, tier and rate before anything changes.",
+      "Movement is predicted on the client with the same collision code as the server, which corrects it when it is more than 0.25 m off.",
+      "A block break that arrives earlier than 80% of the server's own break time is rejected.",
+      "Chunks stream nearest first under a byte budget per player: 256 KB/s on a LAN, 96 KB/s over the internet.",
+      "Your skills, inventory and position are kept by the server under your player id, so you get them back when you return."
+    ],
+    "adminTitle": "Admin commands", "adminLede": "For the host and listed admin ids only."
+  },
+  "media": { "title": "Media", "lede": "Captures straight from the game, as it is now. Early milestones look plain: the built-in shader look comes later.", "videos": "Showcase videos", "stills": "Captures", "caption": "Milestone" },
+  "wiki": {
+    "title": "Wiki", "lede": "Blocks come from the game's own data files. The rest is the design as planned and will change as it is built.",
+    "dataNote": "",
+    "inGameNote": "From assets/data/blocks.json in the game.",
+    "plannedNote": "From the design bible. Planned: numbers may change before they are in the game.",
+    "sections": {
+      "blocks": ["Blocks", "Every block in the game now, with its tool, tier and drops."],
+      "world": ["World", "Tiers, biomes and the ore table."],
+      "mobs": ["Mobs", "Hostile creatures and how they behave."],
+      "bosses": ["Bosses", "Five bosses, their offerings, attacks and the tiers they open."],
+      "skills": ["Skills", "The fourteen skill trees and what gives each one XP."]
+    },
+    "cols": {
+      "block": "Block", "tool": "Tool", "tier": "Tier", "hardness": "Hardness", "drops": "Drops", "xp": "Skill XP", "light": "Light",
+      "where": "Where", "biomes": "Biomes", "materials": "New materials", "boss": "Boss", "ore": "Ore", "height": "Height", "ring": "Ring",
+      "mob": "Mob", "behaviour": "Behaviour", "offering": "Offering", "health": "Health", "attacks": "Phases and attacks", "trophy": "Trophy", "opens": "Opens",
+      "tree": "Tree"
+    },
+    "unbreakable": "unbreakable", "none": "—"
+  },
+  "footer": {
+    "about": "A voxel survival game by RustingStudio, built on RustingEngine in Rust and Vulkan.",
+    "game": "Game", "learn": "Learn", "studio": "Studio",
+    "studioSite": "RustingStudio", "engine": "RustingEngine", "motto": "PUNCH. EARN. BUILD.",
+    "note": "RustingCraft is in development. Everything here can change before release."
+  },
+  "notFound": { "title": "Nothing here", "lede": "This chunk was never generated.", "home": "Back to spawn" }
+}

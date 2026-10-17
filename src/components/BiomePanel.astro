@@ -1,0 +1,25 @@
+---
+// One home section: copy on one side, the biome's island on the other, an optional card in the slot "aside".
+import StatRow from './StatRow.astro';
+import { asset } from '../i18n';
+interface Props {
+  biome: string; side?: 'left' | 'right' | 'center'; index: number; total: number; id: string;
+  kicker: string; title: string; lede: string; stats?: string[][]; foot?: string;
+}
+const { biome, side = 'left', index, total, id, kicker, title, lede, stats, foot } = Astro.props;
+---
+<section class:list={['gr-root gr-panel rc-biome', side === 'right' && 'is-right', side === 'center' && 'is-center']} id={id} data-theme={biome} data-biome={biome} data-side={side} style={`--still:url(${asset(`/game/shots/${biome}.webp`)})`} data-still>
+  <div class="gr-panel-shade"></div>
+  <div class="gr-container gr-panel-inner">
+    <div class="gr-panel-copy">
+      <div class="gr-panel-index"><b>{String(index).padStart(2, '0')}</b> / {String(total).padStart(2, '0')}</div>
+      <span class="gr-kicker">{kicker}</span>
+      <h2 class="gr-panel-name" set:html={title} />
+      <p class="gr-panel-lede">{lede}</p>
+      {stats && <StatRow stats={stats.map(([value, unit, label]) => ({ value, unit, label }))} foot={foot} />}
+      <slot name="tags" />
+      <div class="gr-panel-cta"><slot name="cta" /></div>
+    </div>
+    {Astro.slots.has('aside') && <div class="rc-aside"><slot name="aside" /></div>}
+  </div>
+</section>

@@ -1,0 +1,27 @@
+---
+import Page from '../../layouts/Page.astro';
+import Tag from '../../components/Tag.astro';
+import { localePaths, localeOf, t } from '../../i18n';
+import status from '../../data/game/status.json';
+export const getStaticPaths = localePaths;
+const locale = localeOf(Astro.params.locale);
+const d = t(locale), p = d.roadmap;
+const state = (i: number) => (i < status.milestone ? 'is-done' : i === status.milestone ? 'is-now' : '');
+---
+<Page locale={locale} active="roadmap" biome="mountain" kicker="RustingCraft" title={p.title} lede={p.lede}>
+  <h2 class="gr-section-h">{p.passA}</h2>
+  <ol class="rc-steps">
+    {d.milestones.map(([title, text], i) => (
+      <li class={state(i)}>
+        <h3><code>M{i}</code>{title}
+          {i < status.milestone && <Tag tone="success">{d.status.done}</Tag>}
+          {i === status.milestone && <Tag tone="accent" dot>{`${d.status.now} · ${d.status.iteration} ${status.iteration}/${status.budget}`}</Tag>}
+        </h3>
+        <p>{text}</p>
+      </li>
+    ))}
+  </ol>
+  <h2 class="gr-section-h">{p.passB}</h2>
+  <ul class="rc-steps">{p.passBItems.map((item) => <li><p>{item}</p></li>)}</ul>
+  <p class="rc-meta">{p.synced} {status.synced}</p>
+</Page>

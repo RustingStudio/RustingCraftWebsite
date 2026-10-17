@@ -1,0 +1,21 @@
+---
+import Page from '../../../layouts/Page.astro';
+import Icon from '../../../components/Icon.astro';
+import { localePaths, localeOf, t, href } from '../../../i18n';
+import { SECTIONS } from '../../../data/wiki';
+export const getStaticPaths = localePaths;
+const locale = localeOf(Astro.params.locale);
+const d = t(locale), w = d.wiki;
+---
+<Page locale={locale} active="wiki" biome="lake" kicker="RustingCraft" title={w.title} lede={w.lede}>
+  {w.dataNote && <p class="rc-note"><Icon name="info" />{w.dataNote}</p>}
+  <div class="rc-grid">
+    {SECTIONS.map((s) => (
+      <a class="gr-card" href={href(locale, `/wiki/${s.id}/`)} data-theme={s.biome}>
+        <small>{s.id === 'blocks' ? d.status.inGame : d.status.planned}</small>
+        <b>{w.sections[s.id][0]}</b>
+        <p>{w.sections[s.id][1]}</p>
+      </a>
+    ))}
+  </div>
+</Page>

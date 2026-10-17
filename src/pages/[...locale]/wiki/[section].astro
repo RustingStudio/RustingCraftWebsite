@@ -1,0 +1,51 @@
+---
+import Page from '../../../layouts/Page.astro';
+import Icon from '../../../components/Icon.astro';
+import { LOCALES, localeOf, t, href, asset } from '../../../i18n';
+import { SECTIONS } from '../../../data/wiki';
+import blocks from '../../../data/game/blocks.json';
+import design from '../../../data/game/design.json';
+export function getStaticPaths() {
+  return LOCALES.flatMap((l) => SECTIONS.map((s) => ({ params: { locale: l === 'en' ? undefined : l, section: s.id }, props: { section: s } })));
+}
+const { section } = Astro.props;
+const locale = localeOf(Astro.params.locale);
+const d = t(locale), w = d.wiki, c = w.cols;
+const [title, lede] = w.sections[section.id];
+const none = (v: unknown) => (v === '' || v == null ? w.none : String(v));
+const label = (id: string) => id.replace(/_/g, ' ');
+// One table per section: [heading?, column names, rows of cells]. A cell is text, or {icon, text} for a block.
+type Cell = string | { icon: string; text: string };
+const tables: [string | null, string[], Cell[][]][] = {
+  blocks: [[null, [c.block, c.tool, c.tier, c.hardness, c.drops, c.xp, c.light],
+    blocks.map((b) => [{ icon: b.icon, text: b.name }, none(b.tool === 'none' ? '' : b.tool), String(b.tier), b.hardness < 0 ? w.unbreakable : String(b.hardness), none(b.drops && label(b.drops)), none(b.skill), b.light ? String(b.light) : w.none])]],
+  world: [
+    [d.home.world.kicker, [c.tier, c.where, c.biomes, c.materials, c.boss], design.tiers.map((r) => [r.tier, r.where, r.biomes, r.new_materials, r.boss_altar_biome])],
+    [c.ore, [c.ore, c.tier, c.height, c.ring, c.drops, c.xp], design.ores.map((r) => [r.ore, r.tool_tier, r.height, r.ring, r.drops, r.mining_xp])],
+  ],
+  mobs: [[null, [c.mob, c.where, c.behaviour], design.mobs.map((r) => [r.mob, r.where, r.behaviour])]],
+  bosses: [[null, [c.boss, c.offering, c.health, c.attacks, c.trophy, c.opens], design.bosses.map((r) => [r.boss, r.offering, r.health_1_player, r.phases_and_attacks, r.trophy, r.opens])]],
+  skills: [[null, ['#', c.tree, c.xp], design.trees.map((r) => [String(r.n).padStart(2, '0'), r.name, r.text])]],
+}[section.id];
+const num = (v: Cell) => typeof v === 'string' && /^[\d.−-]+$/.test(v);
+---
+<Page locale={locale} active="wiki" biome={section.biome} kicker={section.id === 'blocks' ? d.status.inGame : d.status.planned} title={title} lede={lede}>
+  <nav class="gr-crumbs" slot="crumbs"><a href={href(locale, '/wiki/')}>{w.title}</a><Icon name="chevronRight" /><span>{title}</span></nav>
+  <p class="rc-note"><Icon name="info" />{section.id === 'blocks' ? w.inGameNote : w.plannedNote}{w.dataNote && ` ${w.dataNote}`}</p>
+  {tables.map(([heading, cols, rows]) => (
+    <>
+      {heading && <h2 class="gr-section-h">{heading}</h2>}
+      <div class="rc-table" lang="en" data-stack>
+        <table>
+          <thead><tr>{cols.map((col) => <th lang={locale}>{col}</th>)}</tr></thead>
+          <tbody>{rows.map((row) => <tr>{row.map((cell, i) => typeof cell === 'string'
+            ? <td class:list={[num(cell) && 'num']} data-label={cols[i]}>{cell}</td>
+            : <td data-label={cols[i]}><span class="rc-cell"><img src={asset(`/game/blocks/${cell.icon}.png`)} alt="" width="24" height="24" loading="lazy" />{cell.text}</span></td>)}</tr>)}</tbody>
+        </table>
+      </div>
+    </>
+  ))}
+  <nav class="gr-panel-cta">
+    {SECTIONS.filter((s) => s.id !== section.id).map((s) => <a class="gr-btn gr-btn-secondary gr-btn-sm" href={href(locale, `/wiki/${s.id}/`)}>{w.sections[s.id][0]}</a>)}
+  </nav>
+</Page>

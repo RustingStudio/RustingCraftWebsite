@@ -1,0 +1,269 @@
+{
+ "tiers": [
+  {
+   "tier": "T1",
+   "where": "0–800 m",
+   "biomes": "Meadow, Forest, Birch Forest, Beach, Ocean",
+   "new_materials": "wood, stone, flint, coal, copper, tin",
+   "boss_altar_biome": "Thornback (Forest)"
+  },
+  {
+   "tier": "T2",
+   "where": "800–2000 m",
+   "biomes": "Hills, Mountains, Pine Taiga",
+   "new_materials": "iron (rare in T1 below y = 0), granite",
+   "boss_altar_biome": "Stone Warden (Mountains)"
+  },
+  {
+   "tier": "T3",
+   "where": "2000–3500 m",
+   "biomes": "Swamp, Mangrove, Badlands",
+   "new_materials": "silver, peat, swamp herbs, rice",
+   "boss_altar_biome": "Bog Mother (Swamp)"
+  },
+  {
+   "tier": "T4",
+   "where": "3500 m+",
+   "biomes": "Frost Peaks, Glacier, Frozen Ocean",
+   "new_materials": "frostglass, frostroot",
+   "boss_altar_biome": "Rime Wyrm (Frost Peaks)"
+  },
+  {
+   "tier": "Deep",
+   "where": "below y = −64 anywhere",
+   "biomes": "Deepstone caverns, magma lakes",
+   "new_materials": "deepiron, magma core, emberbloom",
+   "boss_altar_biome": "Deep Tyrant (Deep vault)"
+  }
+ ],
+ "ores": [
+  {
+   "ore": "Coal",
+   "tool_tier": "1 (stone)",
+   "height": "−64–200",
+   "ring": "all",
+   "drops": "coal 1",
+   "mining_xp": "4"
+  },
+  {
+   "ore": "Copper",
+   "tool_tier": "1",
+   "height": "−32–100",
+   "ring": "T1+",
+   "drops": "raw copper 1–2",
+   "mining_xp": "5"
+  },
+  {
+   "ore": "Tin",
+   "tool_tier": "1",
+   "height": "−32–60",
+   "ring": "T1+",
+   "drops": "raw tin 1",
+   "mining_xp": "5"
+  },
+  {
+   "ore": "Iron",
+   "tool_tier": "2 (bronze)",
+   "height": "−64–120 (T2+), −64–0 in T1 at 25%",
+   "ring": "T2+",
+   "drops": "raw iron 1",
+   "mining_xp": "8"
+  },
+  {
+   "ore": "Silver",
+   "tool_tier": "3 (iron)",
+   "height": "−64–40",
+   "ring": "T3+",
+   "drops": "raw silver 1",
+   "mining_xp": "12"
+  },
+  {
+   "ore": "Gold",
+   "tool_tier": "3",
+   "height": "−64–20",
+   "ring": "T3+",
+   "drops": "raw gold 1",
+   "mining_xp": "14"
+  },
+  {
+   "ore": "Gems (amethyst, emerald, ruby)",
+   "tool_tier": "3",
+   "height": "−64–30",
+   "ring": "T2+",
+   "drops": "gem 1",
+   "mining_xp": "20"
+  },
+  {
+   "ore": "Frostglass",
+   "tool_tier": "4 (steel)",
+   "height": "60–255",
+   "ring": "T4",
+   "drops": "frostglass shard 1–2",
+   "mining_xp": "25"
+  },
+  {
+   "ore": "Deepiron",
+   "tool_tier": "5 (frostglass)",
+   "height": "−128–−64",
+   "ring": "Deep",
+   "drops": "raw deepiron 1",
+   "mining_xp": "40"
+  }
+ ],
+ "mobs": [
+  {
+   "mob": "Hollow",
+   "where": "everywhere, night and caves",
+   "behaviour": "slow melee walker; burns in sunlight on the surface"
+  },
+  {
+   "mob": "Bone Archer",
+   "where": "everywhere, night and caves",
+   "behaviour": "keeps 8–15 blocks away, shoots arrows"
+  },
+  {
+   "mob": "Cave Spider",
+   "where": "caves T1+",
+   "behaviour": "climbs walls, poison bite"
+  },
+  {
+   "mob": "Wolf pack",
+   "where": "forests, night",
+   "behaviour": "3–5, circles and lunges; tamable is v2"
+  },
+  {
+   "mob": "Bog Slime",
+   "where": "swamp",
+   "behaviour": "splits in two when killed (twice)"
+  },
+  {
+   "mob": "Stone Beetle",
+   "where": "mountains, caves T2+",
+   "behaviour": "armoured front, weak back"
+  },
+  {
+   "mob": "Frost Wraith",
+   "where": "frost peaks",
+   "behaviour": "flies, chills (slowness)"
+  },
+  {
+   "mob": "Magma Crawler",
+   "where": "Deep",
+   "behaviour": "sets the player on fire; explodes on death unless killed by a cold weapon"
+  }
+ ],
+ "bosses": [
+  {
+   "boss": "Thornback, a giant boar",
+   "offering": "8 raw pork + 4 berries",
+   "health_1_player": "400",
+   "phases_and_attacks": "Charge (telegraphed by pawing, dodge sideways), tusk sweep, at 50%: thorns burst from the ground in a ring",
+   "trophy": "Thornback Trophy",
+   "opens": "Iron tier"
+  },
+  {
+   "boss": "Stone Warden, a golem",
+   "offering": "3 iron blocks + 1 gem",
+   "health_1_player": "1200",
+   "phases_and_attacks": "Slam with shockwave (jump it), throws boulders, at 50%: armour plates fall off, core exposed, takes 2× damage to the core",
+   "trophy": "Warden Core",
+   "opens": "Steel tier, blast furnace, waystones (Building), composite bow (Archery)"
+  },
+  {
+   "boss": "Bog Mother, a slime queen",
+   "offering": "6 peat + 4 silver ingots + 1 swamp lily (wild in T3 swamps)",
+   "health_1_player": "2000",
+   "phases_and_attacks": "Spawns bog slimes, poison pools, at 50%: submerges and surfaces under players",
+   "trophy": "Bog Heart",
+   "opens": "Frostglass tier, splash potions tier 2"
+  },
+  {
+   "boss": "Rime Wyrm, an ice serpent",
+   "offering": "4 frostglass + 4 frostroot",
+   "health_1_player": "3200",
+   "phases_and_attacks": "Flies in arcs, frost breath (cold), ice spikes from the ground, at 50%: blizzard (darkness, wind)",
+   "trophy": "Wyrm Scale",
+   "opens": "Deepiron tier, magma ward armour"
+  },
+  {
+   "boss": "Deep Tyrant, a molten titan",
+   "offering": "6 deepiron ingots + 1 magma core + 4 emberbloom",
+   "health_1_player": "5000",
+   "phases_and_attacks": "Lava waves, falling stalactites, at 66% and 33%: summons magma crawlers and changes arena lava height",
+   "trophy": "Tyrant's Heart",
+   "opens": "Legendary items, Hearthforged armour, Grand Hearth"
+  }
+ ],
+ "trees": [
+  {
+   "n": 1,
+   "name": "Woodcutting",
+   "text": "XP: chopping a natural log: oak and birch 4, pine 5, mangrove 7, frostpine 9, ashwood 12. Felling a whole tree (last log of a connected natural tree) +10. Leaves and saplings 0."
+  },
+  {
+   "n": 2,
+   "name": "Mining",
+   "text": "XP: stone 1, granite and darkstone 2, deepstone 3, coal 4, copper and tin 5, iron 8, silver 12, gold 14, gems 20, frostglass 25, deepiron 40. Dirt, sand and gravel give Mining XP 0.5 only with a shovel."
+  },
+  {
+   "n": 3,
+   "name": "Harvest",
+   "text": "XP: harvesting a ripe crop you or anyone planted: wheat, carrot, potato 3; flax, beetroot, onion, barley 4; pumpkin, melon, rice 6; frostroot 10; emberbloom 14. Picking berries 2, mushrooms 3, herbs 4, wild crops ×1.5. Tilling and planting 0.5 (capped, §3)."
+  },
+  {
+   "n": 4,
+   "name": "Fishing",
+   "text": "XP per catch by rarity: junk 1, common 5, uncommon 12, rare 25, treasure 30, epic 40, legendary 60. Scaled by fish size (×0.8–1.3)."
+  },
+  {
+   "n": 5,
+   "name": "Hunting",
+   "text": "XP for killing animals and beasts: chicken and rabbit 3, sheep and pig 5, cow and goat 6, deer 8, boar 10, wolf 10, cave spider 8, deep beasts 25. Elder animals ×3. (Wolves and spiders also give Attack XP for the damage.)"
+  },
+  {
+   "n": 6,
+   "name": "Crafting",
+   "text": "The recipe gate for everything not made of metal: tools of wood and stone, wood and leather gear, furniture, containers, bows, mechanisms. XP: each recipe with \"skill\": \"crafting\" has a base_xp of 1–20 (sticks 0.2, planks 0.5, chest 4, bed 6, leather armour piece 8, longbow 15). Anti-exploit: §3."
+  },
+  {
+   "n": 7,
+   "name": "Smithing",
+   "text": "Anyone can smelt raw ore into ingots at a furnace someone built. Smithing gates the furnace recipe itself, alloys, the anvil and every metal item. XP: smelting (given to the player who loaded the ore, when the ingots come out): copper and tin ingot 2, bronze 3, iron 5, silver 7, gold 7, steel 8, frostglass 12, deepiron 15. Anvil recipes: 3 × the number of ingots used."
+  },
+  {
+   "n": 8,
+   "name": "Cooking",
+   "text": "Anyone can roast raw food on a campfire (a starting recipe). Cooking gates pots, ovens, meals with buffs, and feasts. XP per dish: roasted food 1, simple meals 3–5, stews and pies 6–10, feasts 15, rare-ingredient dishes (frostroot, emberbloom, legendary fish) 12–20."
+  },
+  {
+   "n": 9,
+   "name": "Alchemy",
+   "text": "XP per brew: salve 3, tier 1 potions 5, tier 2 10, tier 3 20, Heroes' Draught 30. Herbs are gathered with Harvest."
+  },
+  {
+   "n": 10,
+   "name": "Building",
+   "text": "XP: placing crafted building blocks (anything made at a workbench, stonecutter, loom or furnace that is a block: planks, bricks, glass, stairs; not dirt, raw stone or logs): 0.5 per block under the §3 limits. A home validated for the first time: 25 XP. Each new comfort point of your home: 10 XP."
+  },
+  {
+   "n": 11,
+   "name": "Attack",
+   "text": "XP: melee damage dealt to hostile mobs and bosses × 0.5; to animals × 0.25. Players: 0."
+  },
+  {
+   "n": 12,
+   "name": "Archery",
+   "text": "XP: ranged damage dealt to hostile mobs and bosses × 0.5 (animals × 0.25), +2 per hit at more than 30 blocks."
+  },
+  {
+   "n": 13,
+   "name": "Defense",
+   "text": "XP: damage from hostile mobs and bosses absorbed by your armour × 1; damage blocked with a shield or weapon × 1.5 (§3 for exclusions)."
+  },
+  {
+   "n": 14,
+   "name": "Athletics",
+   "text": "XP: 1 per 20 blocks sprinted, 1 per 10 blocks swum, 1 per 5 blocks climbed (ladders, vines, mantles); new-cell rule in §3."
+  }
+ ]
+}

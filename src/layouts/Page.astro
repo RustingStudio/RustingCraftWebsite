@@ -1,0 +1,25 @@
+---
+// An inner page: a banner onto one biome island, then a solid sheet with the slot.
+import Base from './Base.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { asset, type Locale } from '../i18n';
+interface Props { locale: Locale; active?: string; biome: string; kicker: string; title: string; lede?: string; description?: string; pageTitle?: string }
+const { locale, active, biome, kicker, title, lede, description, pageTitle } = Astro.props;
+---
+<Base locale={locale} biome={biome} title={pageTitle ?? title.replace(/<[^>]+>/g, '')} description={description ?? lede}>
+  <section class="gr-root rc-banner" data-theme={biome} data-biome={biome} data-side="left" style={`--still:url(${asset(`/game/shots/${biome}.webp`)})`} data-still>
+    <SiteHeader locale={locale} active={active} clear />
+    <div class="gr-container rc-banner-body">
+      <slot name="crumbs" />
+      <span class="gr-kicker">{kicker}</span>
+      <h1 set:html={title} />
+      {lede && <p>{lede}</p>}
+      <slot name="banner" />
+    </div>
+  </section>
+  <main id="main" class="gr-root rc-sheet" data-pagefind-body>
+    <div class="gr-container"><slot /></div>
+  </main>
+  <SiteFooter locale={locale} />
+</Base>

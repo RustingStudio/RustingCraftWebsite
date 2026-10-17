@@ -1,0 +1,28 @@
+---
+import Page from '../../layouts/Page.astro';
+import Icon from '../../components/Icon.astro';
+import { localePaths, localeOf, t } from '../../i18n';
+export const getStaticPaths = localePaths;
+const locale = localeOf(Astro.params.locale);
+const d = t(locale), p = d.server;
+// BIBLE §2: admin commands, for the host and listed admin ids only.
+const admin = ['/tp', '/give', '/xp', '/time', '/weather', '/kick', '/ban'];
+---
+<Page locale={locale} active="server" biome="taiga" kicker="RustingCraft" title={p.title} lede={p.lede}>
+  <p class="rc-note"><Icon name="info" />{p.planned}</p>
+  <div class="rc-grid">
+    {p.modes.map(([name, text], i) => <div class="gr-card"><small>0{i + 1}</small><b>{name}</b><p>{text}</p></div>)}
+  </div>
+  <h2 class="gr-section-h">{p.rulesTitle}</h2>
+  <ul class="rc-steps">{p.rules.map((rule) => <li><p>{rule}</p></li>)}</ul>
+  <h2 class="gr-section-h"><code>{p.configTitle}</code></h2>
+  <p class="rc-lede">{p.configLede}</p>
+  <div class="rc-table">
+    <table>
+      <tbody>{p.config.map(([key, text]) => <tr><td><code>{key}</code></td><td>{text}</td></tr>)}</tbody>
+    </table>
+  </div>
+  <h2 class="gr-section-h">{p.adminTitle}</h2>
+  <p class="rc-lede">{p.adminLede}</p>
+  <div class="gr-panel-tags">{admin.map((c) => <code class="gr-tag">{c}</code>)}</div>
+</Page>

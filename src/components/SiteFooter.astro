@@ -1,0 +1,32 @@
+---
+import Logo from './Logo.astro';
+import { t, href, type Locale } from '../i18n';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const d = t(locale);
+const cols: [string, [string, string][]][] = [
+  [d.footer.game, [[d.nav.download, href(locale, '/download/')], [d.nav.roadmap, href(locale, '/roadmap/')], [d.nav.server, href(locale, '/server/')], [d.nav.media, href(locale, '/media/')]]],
+  [d.footer.learn, [[d.nav.wiki, href(locale, '/wiki/')], [d.wiki.sections.blocks[0], href(locale, '/wiki/blocks/')], [d.wiki.sections.bosses[0], href(locale, '/wiki/bosses/')], [d.nav.devlog, href(locale, '/devlog/')]]],
+  [d.footer.studio, [[d.footer.studioSite, 'https://rustingstudio.com/'], [d.footer.engine, 'https://rustingstudio.com/engine/'], ['GitHub', 'https://github.com/RustingStudio']]],
+];
+---
+<footer class="gr-root gr-footer">
+  <div class="gr-container">
+    <div class="gr-footer-top">
+      <div class="gr-footer-brand">
+        <Logo size={30} wordmark />
+        <p>{d.footer.about}</p>
+      </div>
+      {cols.map(([title, links]) => (
+        <div class="gr-footer-col">
+          <h2 class="gr-footer-h">{title}</h2>
+          {links.map(([label, to]) => <a href={to}>{label}</a>)}
+        </div>
+      ))}
+    </div>
+    <div class="gr-footer-bottom">
+      <span class="gr-footer-motto">{d.footer.motto}</span>
+      <span>{d.footer.note}</span>
+    </div>
+  </div>
+</footer>

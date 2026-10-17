@@ -1,0 +1,40 @@
+---
+// The global bar. Under 900px it collapses to logo + a menu (native popover, no JS).
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import { LOCALES, t, href, switchTo, type Locale } from '../i18n';
+interface Props { locale: Locale; active?: string; clear?: boolean }
+const { locale, active, clear } = Astro.props;
+const d = t(locale);
+const items: [string, string, string][] = [
+  ['wiki', d.nav.wiki, href(locale, '/wiki/')],
+  ['devlog', d.nav.devlog, href(locale, '/devlog/')],
+  ['roadmap', d.nav.roadmap, href(locale, '/roadmap/')],
+  ['server', d.nav.server, href(locale, '/server/')],
+  ['media', d.nav.media, href(locale, '/media/')],
+];
+const langs = LOCALES.map((l) => ({ l, name: t(l).lang, to: switchTo(Astro.url.pathname, l) }));
+---
+<header class:list={['gr-header', clear && 'is-clear']}>
+  <Logo size={28} wordmark href={href(locale)} />
+  <nav class="gr-header-nav" aria-label="Main">
+    {items.map(([id, label, to]) => <a href={to} class:list={['gr-header-link', active === id && 'is-active']} aria-current={active === id ? 'page' : undefined}>{label}</a>)}
+  </nav>
+  <button class="gr-search" type="button" aria-label={d.nav.searchLabel} data-search>
+    <Icon name="search" /><span>{d.nav.search}</span><kbd class="gr-kbd">Ctrl K</kbd>
+  </button>
+  <button class="gr-btn gr-btn-ghost gr-btn-sm rc-lang" type="button" aria-label={d.nav.language} popovertarget="rc-lang"><Icon name="globe" />{locale.toUpperCase()}</button>
+  <nav id="rc-lang" class="rc-lang-menu gr-root" popover aria-label={d.nav.language}>
+    {langs.map(({ l, name, to }) => <a href={to} hreflang={l} lang={l} aria-current={l === locale ? 'true' : undefined}>{name}<span>{l.toUpperCase()}</span></a>)}
+  </nav>
+  <a class="gr-btn gr-btn-primary gr-btn-sm gr-header-gh" href={href(locale, '/download/')}><Icon name="download" />{d.nav.download}</a>
+  <button class="gr-btn gr-btn-ghost gr-header-menu" type="button" aria-label={d.nav.menu} popovertarget="gr-menu"><Icon name="menu" /></button>
+  <nav id="gr-menu" class="gr-menu gr-root" popover aria-label={d.nav.menu}>
+    <a href={href(locale)}>{d.nav.home}</a>
+    {items.map(([id, label, to]) => <a href={to} aria-current={active === id ? 'page' : undefined}>{label}</a>)}
+    <a href={href(locale, '/download/')} aria-current={active === 'download' ? 'page' : undefined}><Icon name="download" />{d.nav.download}</a>
+    <button class="gr-search" type="button" data-search><Icon name="search" /><span>{d.nav.search}</span></button>
+    <h6>{d.nav.language}</h6>
+    <div class="rc-menu-langs">{langs.map(({ l, to }) => <a href={to} hreflang={l} aria-current={l === locale ? 'true' : undefined}>{l.toUpperCase()}</a>)}</div>
+  </nav>
+</header>

@@ -1,0 +1,14 @@
+{
+ "meadow": "M1/biomes_spawn.png",
+ "forest": "M1/cave_mouth.png",
+ "lake": "M1/biomes_mountains.png",
+ "mountain": "M1/biomes_taiga.png",
+ "taiga": "M1/daynight_night.png",
+ "bog": "M1/light_cave.png",
+ "frost": "M1/biomes_taiga_2.png",
+ "deep": "M1/daynight_dusk.png",
+ "sunset": "showcase/M0_horizon.png",
+ "peers": "M2/peers_01.png",
+ "dawn": "M1/daynight_dawn.png",
+ "terrain": "M1/terrain_01.png"
+}

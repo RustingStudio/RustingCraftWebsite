@@ -1,0 +1,9 @@
+---
+import Page from '../layouts/Page.astro';
+import Button from '../components/Button.astro';
+import { t, href } from '../i18n';
+const d = t('en');
+---
+<Page locale="en" biome="deep" kicker="404" title={d.notFound.title} lede={d.notFound.lede}>
+  <Button arrow href={href('en')} slot="banner">{d.notFound.home}</Button>
+</Page>

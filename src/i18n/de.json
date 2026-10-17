@@ -1,0 +1,146 @@
+{
+  "lang": "Deutsch",
+  "meta": {
+    "description": "RustingCraft ist ein Voxel-Survival-Spiel in Rust und Vulkan: Starte mit bloßen Fäusten, verdiene dir jede Fähigkeit in 14 Skillbäumen, spiele allein oder mit bis zu 7 Freunden.",
+    "skip": "Zum Inhalt springen"
+  },
+  "nav": {
+    "home": "Start", "wiki": "Wiki", "devlog": "Devlog", "roadmap": "Roadmap", "server": "Server", "media": "Medien",
+    "download": "Download", "menu": "Menü öffnen", "language": "Sprache", "search": "Suche", "searchLabel": "Seite durchsuchen", "close": "Suche schließen"
+  },
+  "status": { "inDev": "In Entwicklung", "planned": "Geplant", "inGame": "Im Spiel", "done": "Fertig", "now": "In Arbeit", "next": "Als Nächstes", "iteration": "Iteration" },
+  "home": {
+    "hero": {
+      "kicker": "Voxel-Survival / Rust / Vulkan",
+      "tagline": "Starte mit bloßen Fäusten. Verdiene dir alles andere.",
+      "lede": "Eine Blockwelt zum Abbauen, Bauen, Anbauen, Angeln und Kämpfen, allein oder mit bis zu sieben Freunden. Du beginnst schwach, und jede Fähigkeit verdienst du dir in vierzehn Skillbäumen.",
+      "devlog": "Zum Devlog", "roadmap": "Zur Roadmap", "scroll": "Durch die Biome scrollen"
+    },
+    "skills": {
+      "kicker": "Skills", "title": "Jede Fähigkeit ist <b>verdient</b>",
+      "lede": "Jede Tätigkeit gibt allgemeine XP. Spielerstufen geben Skillpunkte, ein Punkt schaltet einen Skillbaum frei, und ein freigeschalteter Skill wächst nur durch Tun. Wer Eisen abbaut, wird ein besserer Bergmann; wer Weizen erntet, ein besserer Bauer.",
+      "stats": [["14", "", "Skillbäume"], ["~4", "", "Bäume meistert ein Spieler"], ["7", "", "Rezepte zu Beginn"]],
+      "foot": "Aus dem Design-Dokument. Zahlen können sich noch ändern.",
+      "cta": "Alle 14 Bäume"
+    },
+    "world": {
+      "kicker": "Welt", "title": "Eine Welt in <b>Ringen</b>",
+      "lede": "Die Welt ist unendlich, und sie wird gefährlicher und reicher, je weiter du dich vom Spawn entfernst und je tiefer du gräbst: von den Wiesen um den Spawn bis zu Frostgipfeln und hinab in die Tiefe unter y = −64.",
+      "stats": [["384", "Blöcke", "Welthöhe"], ["5", "", "Weltstufen"], ["20", "min", "Tag und Nacht"]],
+      "cta": "Stufen und Erze"
+    },
+    "farm": {
+      "kicker": "Anbauen, angeln, kochen", "title": "Anbauen, angeln, <b>kochen</b>",
+      "lede": "Pflüge Ackerland, baue dreizehn Feldfrüchte an und hoffe auf eine goldene Ernte. Lies das Wasser, warte auf den Biss und gewinne den Drill. Koche Festmahle, die allen am Tisch Boni geben.",
+      "stats": [["13", "", "Feldfrüchte"], ["7", "", "Seltenheiten beim Fang"], ["4", "", "Bäume: Ernte, Angeln, Kochen, Jagd"]]
+    },
+    "coop": {
+      "kicker": "Koop", "title": "Teilt die <b>Arbeit</b>",
+      "lede": "Solo läuft ein integrierter Server im selben Prozess, so wie bei Minecraft. Öffne ihn für Freunde oder starte einen dedizierten Server mit demselben Code. Skillpunkte sind knapp, also teilt ihr die Rollen: Bauer, Schmied, Kämpfer.",
+      "stats": [["8", "", "Spieler pro Server"], ["1", "", "Codepfad für Solo und Server"], ["6", "Zeichen", "Raumcode zum Beitreten"]],
+      "cta": "Server hosten"
+    },
+    "fight": {
+      "kicker": "Monster und Kampf", "title": "Gefahr ist <b>lesbar</b>",
+      "lede": "Nachts wandeln Hollows, Knochenschützen halten Abstand, und Sumpfschleime teilen sich, wenn sie sterben. Jeder Feind macht ein Geräusch, wenn er dich bemerkt, und jeder Angriff hat eine sichtbare Ausholbewegung.",
+      "tags": ["Kritische Treffer und Rückstoß", "Perfekter Block", "Bögen und Armbrüste", "Rüstungsstufen"],
+      "stats": [["8", "", "feindliche Monster"], ["0,3–0,6", "s", "Ausholzeit"], ["40", "ms", "Hit-Stop"]],
+      "cta": "Monster"
+    },
+    "bosses": {
+      "kicker": "Bosse", "title": "Fünf Bosse, fünf <b>Tore</b>",
+      "lede": "Beschwöre jeden Boss an seinem Altar mit einer Opfergabe. Seine Trophäe öffnet die nächste Materialstufe, von Eisen bis zur legendären Hearthforged-Ausrüstung.",
+      "health": "Leben, ein Spieler",
+      "cta": "Bosse"
+    },
+    "graphics": {
+      "kicker": "Grafik", "title": "Shader und Mods, <b>eingebaut</b>",
+      "lede": "Spieler laden Shaderpacks und Mods, damit Blockspiele besser aussehen. RustingCraft liefert diesen Look direkt mit: klares Wasser mit Wellen und Spiegelungen, Glas, eine Fackel, die die Welt aus deiner Hand beleuchtet, wehende Pflanzen und Handanimationen. Vier Voreinstellungen von Niedrig bis Ultra.",
+      "stats": [["0,06", "ms", "für das Mesh einer 16³-Sektion"], ["5,9", "ms", "Frame p95 beim Streamen im Sprint"], ["1,16", "ms", "GPU p50 bei 906k Dreiecken"]],
+      "foot": "Gemessen in M1: Release-Build, RTX 3060, headless 1280 × 720, Sichtweite 8.",
+      "cta": "Aufnahmen"
+    },
+    "follow": {
+      "kicker": "Roadmap", "title": "Verfolge den <b>Bau</b>",
+      "lede": "RustingCraft entsteht offen, Meilenstein für Meilenstein. Jeder Meilenstein endet mit gemessenen Zahlen und einer Aufnahme. Englisch, Deutsch und Russisch von Anfang an, und rund sechzig Errungenschaften als Wegweiser.",
+      "download": "Download", "soon": "Bald verfügbar", "roadmap": "Ganze Roadmap"
+    }
+  },
+  "milestones": [
+    ["Spike", "Der Voxel-Weg auf der Engine: Sektionen als Mesh, Laufen, Abbauen und Platzieren."],
+    ["Welt", "Gelände, fünf Biome, Höhlen, Erze, Bäume, Streaming, Licht, Tag und Nacht, Wasser, Speichern."],
+    ["Server", "Integrierter und dedizierter Server auf einem Codepfad, Vorhersage, zwei Spieler zusammen."],
+    ["Überleben", "Gegenstände, Inventar, Handwerk mit Sperren, Leben, Hunger, Tod und Gräber."],
+    ["Skills", "Allgemeine XP, Stufen, Punkte, sechs vollständige Bäume, der Skill-Bildschirm."],
+    ["Anbau und Angeln", "Ackerland, vier Feldfrüchte, Angeln mit Drill-Spiel, Kochen am Lagerfeuer."],
+    ["Kampf", "Tiere, Nachtmonster, Wegfindung, Nahkampf, Schilde, Bögen, Rüstung."],
+    ["Handwerk und Stufen", "Ofen, Schmieden, Bronze, Qualität, Truhen, Betten, der Herd."],
+    ["Erster Boss", "Der Thornback-Altar, der Kampf, Trophäen und das Eisentor."],
+    ["Erste Nächte", "Vom frischen Spawn bis zum besiegten Thornback, auf einem dedizierten Server."]
+  ],
+  "roadmap": {
+    "title": "Roadmap", "lede": "Pass A baut den Kern jedes Systems als Meilensteine M0 bis M9. Pass B baut danach jeden Bereich vollständig und endet mit dem Release.",
+    "passA": "Pass A: der Kern", "passB": "Pass B: alles",
+    "passBItems": ["Die ganze Welt: Stufen 2 bis 5, alle Biome und Bauwerke", "Alle 14 Skillbäume mit jedem Perk", "13 Feldfrüchte, Kochen, Alchemie, Bauen und Zuhause", "Alle fünf Bosse", "Der eingebaute Shader-Look und Animationen", "Menüs, Grafik-Voreinstellungen, EN/DE/RU, Errungenschaften", "Client- und Server-Builds für Linux und Windows"],
+    "synced": "Status aus dem Spiel-Repository übernommen am"
+  },
+  "download": {
+    "title": "Download", "lede": "Noch gibt es keinen öffentlichen Build.",
+    "body": "Der erste spielbare Build folgt auf Meilenstein M9: ein Durchlauf vom frischen Spawn bis zum ersten besiegten Boss, auf einem dedizierten Server mit zwei Spielern. Release-Builds sind für Linux und Windows geplant, als Client und als dedizierter Server.",
+    "platforms": "Geplante Plattformen", "client": "Client", "serverBuild": "Dedizierter Server",
+    "meanwhile": "Bis dahin", "follow": "Devlog lesen", "watch": "Aufnahmen ansehen"
+  },
+  "devlog": { "title": "Devlog", "lede": "Ein Beitrag pro Meilenstein: was gebaut wurde, was gemessen wurde und was kaputtging.", "read": "Lesen", "back": "Alle Beiträge", "enOnly": "Die Devlog-Beiträge sind auf Englisch." },
+  "server": {
+    "title": "Server", "lede": "Ein Server, drei Arten, ihn zu starten. Solo, Koop und dediziert teilen denselben Code.",
+    "planned": "Beitreten per Adresse funktioniert in Entwicklungs-Builds. Raumcodes, Chat und die Serverliste kommen später im Plan.",
+    "modes": [
+      ["Solo", "Ein integrierter Server läuft im Spielprozess, mit einem Spieler und ohne offenen Port."],
+      ["Für Freunde öffnen", "Öffnet den integrierten Server fürs Netz. Freunde treten per Adresse und Port bei oder mit einem 6-stelligen Raumcode über ein Relay."],
+      ["Dediziert", "Derselbe Servercode ohne Fenster. Starte ihn auf einem freien Rechner für bis zu 8 Spieler."]
+    ],
+    "configTitle": "server.json", "configLede": "Jedes Feld und sein Standardwert.",
+    "config": [
+      ["name", "Servername in der Liste"], ["max_players", "8"], ["password", "Optional"], ["seed", "Welt-Seed"],
+      ["view_distance", "8 Chunks pro Spieler"], ["simulation_distance", "6 Chunks mit Pflanzen, Monstern und Flüssigkeiten um jeden Spieler"],
+      ["difficulty", "Casual, Normal oder Hardcore"], ["pvp", "Aus"], ["mob_griefing", "Aus"], ["xp_rate", "XP-Faktor, 1.0"], ["keep_inventory", "Aus"]
+    ],
+    "rulesTitle": "Der Server besitzt die Welt",
+    "rules": [
+      "Clients senden Eingaben und Anfragen; der Server prüft Reichweite, Sichtlinie, Werkzeug, Stufe und Rate, bevor sich etwas ändert.",
+      "Bewegung wird im Client mit demselben Kollisionscode wie auf dem Server vorhergesagt; der Server korrigiert ab 0,25 m Abweichung.",
+      "Ein Abbau, der früher als nach 80 % der Abbauzeit des Servers ankommt, wird abgelehnt.",
+      "Chunks kommen die nächsten zuerst, mit einem Byte-Budget pro Spieler: 256 KB/s im LAN, 96 KB/s übers Internet.",
+      "Skills, Inventar und Position bewahrt der Server unter deiner Spieler-ID auf, du bekommst sie bei der Rückkehr zurück."
+    ],
+    "adminTitle": "Admin-Befehle", "adminLede": "Nur für den Host und eingetragene Admin-IDs."
+  },
+  "media": { "title": "Medien", "lede": "Aufnahmen direkt aus dem Spiel, so wie es jetzt ist. Frühe Meilensteine sehen schlicht aus: Der eingebaute Shader-Look kommt später.", "videos": "Showcase-Videos", "stills": "Aufnahmen", "caption": "Meilenstein" },
+  "wiki": {
+    "title": "Wiki", "lede": "Blöcke stammen aus den Datendateien des Spiels. Der Rest ist das geplante Design und ändert sich beim Bauen.",
+    "dataNote": "Spieldaten bleiben auf Englisch, bis das Spiel selbst übersetzt ist.",
+    "inGameNote": "Aus assets/data/blocks.json im Spiel.",
+    "plannedNote": "Aus dem Design-Dokument. Geplant: Zahlen können sich ändern, bevor sie im Spiel sind.",
+    "sections": {
+      "blocks": ["Blöcke", "Jeder Block, den das Spiel jetzt hat, mit Werkzeug, Stufe und Drops."],
+      "world": ["Welt", "Stufen, Biome und die Erztabelle."],
+      "mobs": ["Monster", "Feindliche Kreaturen und ihr Verhalten."],
+      "bosses": ["Bosse", "Fünf Bosse, ihre Opfergaben, Angriffe und die Stufen, die sie öffnen."],
+      "skills": ["Skills", "Die vierzehn Skillbäume und was jedem XP gibt."]
+    },
+    "cols": {
+      "block": "Block", "tool": "Werkzeug", "tier": "Stufe", "hardness": "Härte", "drops": "Drops", "xp": "Skill-XP", "light": "Licht",
+      "where": "Wo", "biomes": "Biome", "materials": "Neue Materialien", "boss": "Boss", "ore": "Erz", "height": "Höhe", "ring": "Ring",
+      "mob": "Monster", "behaviour": "Verhalten", "offering": "Opfergabe", "health": "Leben", "attacks": "Phasen und Angriffe", "trophy": "Trophäe", "opens": "Öffnet",
+      "tree": "Baum"
+    },
+    "unbreakable": "unzerstörbar", "none": "—"
+  },
+  "footer": {
+    "about": "Ein Voxel-Survival-Spiel von RustingStudio, gebaut auf RustingEngine in Rust und Vulkan.",
+    "game": "Spiel", "learn": "Wissen", "studio": "Studio",
+    "studioSite": "RustingStudio", "engine": "RustingEngine", "motto": "PUNCH. EARN. BUILD.",
+    "note": "RustingCraft ist in Entwicklung. Alles hier kann sich bis zum Release ändern."
+  },
+  "notFound": { "title": "Hier ist nichts", "lede": "Dieser Chunk wurde nie generiert.", "home": "Zurück zum Spawn" }
+}

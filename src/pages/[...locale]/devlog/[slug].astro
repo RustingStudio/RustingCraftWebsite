@@ -1,0 +1,23 @@
+---
+import { getCollection, render } from 'astro:content';
+import Page from '../../../layouts/Page.astro';
+import Icon from '../../../components/Icon.astro';
+import { LOCALES, localeOf, t, href, asset } from '../../../i18n';
+export async function getStaticPaths() {
+  const posts = await getCollection('devlog');
+  return LOCALES.flatMap((l) => posts.map((post) => ({ params: { locale: l === 'en' ? undefined : l, slug: post.id }, props: { post } })));
+}
+const { post } = Astro.props;
+const locale = localeOf(Astro.params.locale);
+const d = t(locale), p = d.devlog;
+const { Content } = await render(post);
+---
+<Page locale={locale} active="devlog" biome="forest" kicker={`M${post.data.milestone} · ${post.data.date.toISOString().slice(0, 10)}`} title={post.data.title} lede={post.data.description}>
+  <nav class="gr-crumbs" slot="crumbs"><a href={href(locale, '/devlog/')}>{d.nav.devlog}</a><Icon name="chevronRight" /><span>M{post.data.milestone}</span></nav>
+  <article class="rc-post" lang="en">
+    {p.enOnly && <p class="rc-note" lang={locale}><Icon name="info" />{p.enOnly}</p>}
+    {post.data.video && <video src={asset(post.data.video)} controls muted playsinline preload="metadata" poster={post.data.cover && asset(post.data.cover)}></video>}
+    <div class="gr-prose"><Content /></div>
+    <p><a class="gr-btn gr-btn-ghost" href={href(locale, '/devlog/')}>{p.back}</a></p>
+  </article>
+</Page>

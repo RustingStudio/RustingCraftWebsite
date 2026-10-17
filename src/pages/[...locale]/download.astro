@@ -1,0 +1,24 @@
+---
+import Page from '../../layouts/Page.astro';
+import Button from '../../components/Button.astro';
+import Tag from '../../components/Tag.astro';
+import { localePaths, localeOf, t, href } from '../../i18n';
+export const getStaticPaths = localePaths;
+const locale = localeOf(Astro.params.locale);
+const d = t(locale), p = d.download;
+const builds = [[p.client, 'Linux · Windows'], [p.serverBuild, 'Linux · Windows']];
+---
+<Page locale={locale} active="download" biome="sunset" kicker="RustingCraft" title={`${p.title} · <b>${d.home.follow.soon}</b>`} lede={p.lede} pageTitle={p.title}>
+  <p class="rc-lede">{p.body}</p>
+  <h2 class="gr-section-h">{p.platforms}</h2>
+  <div class="rc-grid">
+    {builds.map(([name, os]) => (
+      <div class="gr-card"><small>{os}</small><b>{name}</b><p><Tag tone="accent" dot>{d.home.follow.soon}</Tag></p></div>
+    ))}
+  </div>
+  <h2 class="gr-section-h">{p.meanwhile}</h2>
+  <div class="gr-panel-cta">
+    <Button arrow href={href(locale, '/devlog/')}>{p.follow}</Button>
+    <Button variant="secondary" icon="play" href={href(locale, '/media/')}>{p.watch}</Button>
+  </div>
+</Page>

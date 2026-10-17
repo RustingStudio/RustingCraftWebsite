@@ -1,0 +1,100 @@
+---
+import Base from '../../layouts/Base.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import BiomePanel from '../../components/BiomePanel.astro';
+import Button from '../../components/Button.astro';
+import Tag from '../../components/Tag.astro';
+import { localePaths, localeOf, t, href, asset } from '../../i18n';
+import design from '../../data/game/design.json';
+import status from '../../data/game/status.json';
+export const getStaticPaths = localePaths;
+const locale = localeOf(Astro.params.locale);
+const d = t(locale), h = d.home;
+const total = 8;
+const maxHealth = Math.max(...design.bosses.map((b) => Number(b.health_1_player)));
+const milestone = (i: number) => (i < status.milestone ? 'is-done' : i === status.milestone ? 'is-now' : '');
+---
+<Base locale={locale} biome="meadow">
+  <section class="gr-root gr-hero rc-hero" data-theme="meadow" data-biome="meadow" data-side="left" style={`--still:url(${asset('/game/shots/meadow.webp')})`} data-still>
+    <div class="gr-hero-shade"></div>
+    <SiteHeader locale={locale} clear />
+    <div class="gr-container gr-hero-body">
+      <span class="rc-hero-status"><Tag tone="accent" dot>{d.status.inDev}</Tag>M{status.milestone} {status.name.toLowerCase()} · {d.status.iteration} {status.iteration}/{status.budget}</span>
+      <span class="gr-kicker">{h.hero.kicker}</span>
+      <h1 class="gr-hero-title">Rusting<b>Craft</b></h1>
+      <p class="gr-hero-tagline">{h.hero.tagline}</p>
+      <p class="gr-hero-lede">{h.hero.lede}</p>
+      <div class="gr-hero-cta">
+        <Button size="lg" arrow href={href(locale, '/devlog/')}>{h.hero.devlog}</Button>
+        <Button size="lg" variant="secondary" icon="path" href={href(locale, '/roadmap/')}>{h.hero.roadmap}</Button>
+      </div>
+      <div class="gr-hero-motto">{d.footer.motto}</div>
+    </div>
+    <a class="rc-hero-scroll" href="#skills">{h.hero.scroll}<i></i></a>
+  </section>
+  <main id="main">
+    <BiomePanel id="skills" biome="forest" side="left" index={1} total={total} {...h.skills}>
+      <ol class="rc-trees" slot="aside">
+        {design.trees.map((tr) => <li><b>{String(tr.n).padStart(2, '0')}</b>{tr.name}</li>)}
+      </ol>
+      <Fragment slot="cta"><Button arrow href={href(locale, '/wiki/skills/')}>{h.skills.cta}</Button></Fragment>
+    </BiomePanel>
+
+    <BiomePanel id="world" biome="mountain" side="right" index={2} total={total} {...h.world}>
+      <Fragment slot="aside">
+        <h3>{d.wiki.sections.world[0]}</h3>
+        <ol class="rc-tiers">
+          {design.tiers.map((tr) => <li><b>{tr.tier}</b><span>{tr.biomes}<small>{tr.where} · {tr.new_materials}</small></span></li>)}
+        </ol>
+      </Fragment>
+      <Fragment slot="cta"><Button arrow href={href(locale, '/wiki/world/')}>{h.world.cta}</Button></Fragment>
+    </BiomePanel>
+
+    <BiomePanel id="farm" biome="lake" side="left" index={3} total={total} {...h.farm} />
+
+    <BiomePanel id="coop" biome="taiga" side="right" index={4} total={total} {...h.coop}>
+      <Fragment slot="cta"><Button arrow icon="server" href={href(locale, '/server/')}>{h.coop.cta}</Button></Fragment>
+    </BiomePanel>
+
+    <BiomePanel id="fight" biome="bog" side="left" index={5} total={total} {...h.fight}>
+      <div class="gr-panel-tags" slot="tags">{h.fight.tags.map((tag) => <Tag tone="accent">{tag}</Tag>)}</div>
+      <Fragment slot="aside">
+        <h3>{d.wiki.sections.mobs[0]}</h3>
+        <ol class="rc-tiers">{design.mobs.map((m, i) => <li><b>{String(i + 1).padStart(2, "0")}</b><span>{m.mob}<small>{m.where}</small></span></li>)}</ol>
+      </Fragment>
+      <Fragment slot="cta"><Button arrow href={href(locale, '/wiki/mobs/')}>{h.fight.cta}</Button></Fragment>
+    </BiomePanel>
+
+    <BiomePanel id="bosses" biome="frost" side="right" index={6} total={total} {...h.bosses}>
+      <Fragment slot="aside">
+        <h3>{h.bosses.health}</h3>
+        <ol class="rc-bosses">
+          {design.bosses.map((b) => (
+            <li>
+              <div class="rc-bosses-row">{b.boss.split(',')[0]}<span>{b.health_1_player}</span></div>
+              <div class="rc-bar" style={`--w:${(Number(b.health_1_player) / maxHealth) * 100}%`}><i></i></div>
+              <small>{b.opens}</small>
+            </li>
+          ))}
+        </ol>
+      </Fragment>
+      <Fragment slot="cta"><Button arrow href={href(locale, '/wiki/bosses/')}>{h.bosses.cta}</Button></Fragment>
+    </BiomePanel>
+
+    <BiomePanel id="graphics" biome="deep" side="left" index={7} total={total} {...h.graphics}>
+      <Fragment slot="cta"><Button arrow icon="play" href={href(locale, '/media/')}>{h.graphics.cta}</Button></Fragment>
+    </BiomePanel>
+
+    <BiomePanel id="follow" biome="sunset" side="center" index={8} total={total} {...h.follow}>
+      <ol class="rc-track" slot="tags">
+        {d.milestones.map(([title], i) => <li class={milestone(i)} style={i === status.milestone ? `--p:${Math.round((status.iteration / status.budget) * 100)}%` : undefined}><b>M{i}</b>{title}</li>)}
+      </ol>
+      <Fragment slot="cta">
+        <Button size="lg" icon="download" href={href(locale, '/download/')}>{h.follow.download} · {h.follow.soon}</Button>
+        <Button size="lg" variant="secondary" arrow href={href(locale, '/roadmap/')}>{h.follow.roadmap}</Button>
+      </Fragment>
+    </BiomePanel>
+  </main>
+  <SiteFooter locale={locale} />
+</Base>
