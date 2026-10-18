@@ -80,7 +80,7 @@
   "tool": "shovel",
   "tier": 0,
   "drops": "dirt",
-  "skill": null,
+  "skill": "mining +0.5",
   "light": 0
  },
  {
@@ -92,7 +92,7 @@
   "tool": "shovel",
   "tier": 0,
   "drops": "dirt",
-  "skill": null,
+  "skill": "mining +0.5",
   "light": 0
  },
  {
@@ -104,7 +104,7 @@
   "tool": "shovel",
   "tier": 0,
   "drops": "dirt",
-  "skill": null,
+  "skill": "mining +0.5",
   "light": 0
  },
  {
@@ -116,7 +116,7 @@
   "tool": "shovel",
   "tier": 0,
   "drops": "sand",
-  "skill": null,
+  "skill": "mining +0.5",
   "light": 0
  },
  {
@@ -127,8 +127,8 @@
   "hardness": 0.9,
   "tool": "shovel",
   "tier": 0,
-  "drops": "gravel",
-  "skill": null,
+  "drops": "loot:gravel",
+  "skill": "mining +0.5",
   "light": 0
  },
  {
@@ -140,7 +140,7 @@
   "tool": "axe",
   "tier": 0,
   "drops": "oak_log",
-  "skill": "woodcutting +3",
+  "skill": "woodcutting +4",
   "light": 0
  },
  {
@@ -164,7 +164,7 @@
   "tool": "axe",
   "tier": 0,
   "drops": "birch_log",
-  "skill": "woodcutting +3",
+  "skill": "woodcutting +4",
   "light": 0
  },
  {
@@ -188,7 +188,7 @@
   "tool": "axe",
   "tier": 0,
   "drops": "pine_log",
-  "skill": "woodcutting +3",
+  "skill": "woodcutting +5",
   "light": 0
  },
  {
@@ -223,7 +223,7 @@
   "hardness": 0,
   "tool": "none",
   "tier": 0,
-  "drops": "",
+  "drops": "loot:tall_grass",
   "skill": null,
   "light": 0
  },
@@ -250,5 +250,209 @@
   "drops": "marigold",
   "skill": null,
   "light": 0
+ },
+ {
+  "id": "planks",
+  "name": "Planks",
+  "shape": "cube",
+  "icon": "planks",
+  "hardness": 2,
+  "tool": "axe",
+  "tier": 0,
+  "drops": "planks",
+  "skill": null,
+  "light": 0
+ },
+ {
+  "id": "crude_workbench",
+  "name": "Crude Workbench",
+  "shape": "cube",
+  "icon": "crude_workbench_side",
+  "hardness": 2.5,
+  "tool": "axe",
+  "tier": 0,
+  "drops": "crude_workbench",
+  "skill": null,
+  "light": 0
+ },
+ {
+  "id": "workbench",
+  "name": "Workbench",
+  "shape": "cube",
+  "icon": "workbench_side",
+  "hardness": 2.5,
+  "tool": "axe",
+  "tier": 0,
+  "drops": "workbench",
+  "skill": null,
+  "light": 0
+ },
+ {
+  "id": "torch",
+  "name": "Torch",
+  "shape": "cross",
+  "icon": "torch",
+  "hardness": 0,
+  "tool": "none",
+  "tier": 0,
+  "drops": "torch",
+  "skill": null,
+  "light": 14
+ },
+ {
+  "id": "campfire",
+  "name": "Campfire",
+  "shape": "cube",
+  "icon": "campfire",
+  "hardness": 2,
+  "tool": "axe",
+  "tier": 0,
+  "drops": "campfire",
+  "skill": null,
+  "light": 15
+ },
+ {
+  "id": "bed",
+  "name": "Bed",
+  "shape": "cube",
+  "icon": "bed_side",
+  "hardness": 0.6,
+  "tool": "none",
+  "tier": 0,
+  "drops": "bed",
+  "skill": null,
+  "light": 0
+ },
+ {
+  "id": "grave",
+  "name": "Grave",
+  "shape": "cube",
+  "icon": "grave",
+  "hardness": -1,
+  "tool": "none",
+  "tier": 0,
+  "drops": "",
+  "skill": null,
+  "light": 3
+ },
+ {
+  "id": "lava",
+  "name": "Lava",
+  "shape": "cube",
+  "icon": "lava",
+  "hardness": -1,
+  "tool": "none",
+  "tier": 0,
+  "drops": "",
+  "skill": null,
+  "light": 15
+ },
+ {
+  "id": "farmland",
+  "name": "Farmland",
+  "shape": "cube",
+  "icon": "dirt",
+  "hardness": 0.6,
+  "tool": "shovel",
+  "tier": 0,
+  "drops": "dirt",
+  "skill": null,
+  "light": 0
+ },
+ {
+  "id": "farmland_wet",
+  "name": "Wet Farmland",
+  "shape": "cube",
+  "icon": "dirt",
+  "hardness": 0.6,
+  "tool": "shovel",
+  "tier": 0,
+  "drops": "dirt",
+  "skill": null,
+  "light": 0
+ },
+ {
+  "id": "furnace",
+  "name": "Furnace",
+  "shape": "cube",
+  "icon": "furnace_side",
+  "hardness": 3.5,
+  "tool": "pickaxe",
+  "tier": 0,
+  "drops": "furnace",
+  "skill": null,
+  "light": 0
+ },
+ {
+  "id": "anvil",
+  "name": "Anvil",
+  "shape": "cube",
+  "icon": "anvil",
+  "hardness": 5,
+  "tool": "pickaxe",
+  "tier": 1,
+  "drops": "anvil",
+  "skill": null,
+  "light": 0
+ },
+ {
+  "id": "chest",
+  "name": "Chest",
+  "shape": "cube",
+  "icon": "chest_side",
+  "hardness": 2.5,
+  "tool": "axe",
+  "tier": 0,
+  "drops": "chest",
+  "skill": null,
+  "light": 0
+ },
+ {
+  "id": "door",
+  "name": "Door",
+  "shape": "cube",
+  "icon": "door",
+  "hardness": 3,
+  "tool": "axe",
+  "tier": 0,
+  "drops": "door",
+  "skill": null,
+  "light": 0
+ },
+ {
+  "id": "hearth",
+  "name": "Hearth",
+  "shape": "cube",
+  "icon": "hearth_side",
+  "hardness": 4,
+  "tool": "pickaxe",
+  "tier": 1,
+  "drops": "hearth",
+  "skill": null,
+  "light": 15
+ },
+ {
+  "id": "stone_bricks",
+  "name": "Stone Bricks",
+  "shape": "cube",
+  "icon": "stone_bricks",
+  "hardness": 7.5,
+  "tool": "pickaxe",
+  "tier": 1,
+  "drops": "stone_bricks",
+  "skill": null,
+  "light": 0
+ },
+ {
+  "id": "altar",
+  "name": "Thornback Altar",
+  "shape": "cube",
+  "icon": "altar_side",
+  "hardness": -1,
+  "tool": "none",
+  "tier": 0,
+  "drops": "",
+  "skill": null,
+  "light": 6
  }
 ]

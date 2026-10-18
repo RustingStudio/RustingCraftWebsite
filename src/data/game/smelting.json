@@ -1,0 +1,1 @@
+{"fuel":[{"item":"coal","seconds":80},{"item":"oak_log","seconds":15},{"item":"birch_log","seconds":15},{"item":"pine_log","seconds":15},{"item":"planks","seconds":15},{"item":"stick","seconds":5}],"max_jobs":8,"max_batches":64,"max_output":256,"view_every_ticks":20}

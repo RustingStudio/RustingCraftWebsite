@@ -30,13 +30,21 @@ function table(md, heading) {
 }
 
 // Blocks: real game data.
+// Crop growth stages, golden crops and the open door are states of another block; they get no row.
 const blocks = JSON.parse(read(join(game, 'assets/data/blocks.json'))).blocks
-  .filter((b) => b.id !== 'air' && b.id !== 'unknown')
+  .filter((b) => !/^(air|unknown|door_open)$|^test_|_\d+$|_golden$/.test(b.id))
   .map(({ id, name, shape, textures, hardness, tool, tier, drops, skill, light }) => ({
     id, name, shape: shape ?? 'cube', icon: textures.side ?? textures.all ?? textures.top ?? id,
     hardness, tool, tier, drops, skill: skill ? `${skill.tree} +${skill.base_xp}` : null, light,
   }));
 writeFileSync(join(data, 'blocks.json'), JSON.stringify(blocks, null, 1) + '\n');
+
+// The other data files, as the game has them, without the entries scenarios use (`test: true`, `test_*` keys).
+const noTest = (v) => Array.isArray(v) ? v.filter((x) => !x?.test).map(noTest)
+  : v && typeof v === 'object' ? Object.fromEntries(Object.entries(v).filter(([k, x]) => !k.startsWith('test_') && !x?.test).map(([k, x]) => [k, noTest(x)]))
+  : v;
+const files = ['items', 'recipes', 'loot', 'mobs', 'bosses', 'crops', 'fish', 'foods', 'buffs', 'smelting', 'tuning', 'home', 'skills'];
+for (const f of files) writeFileSync(join(data, `${f}.json`), JSON.stringify(noTest(JSON.parse(read(join(game, `assets/data/${f}.json`))))) + '\n');
 
 // Design tables: planned, from the BIBLE and SKILLS.
 const bible = read(join(plan, 'BIBLE.md'));
@@ -72,12 +80,17 @@ const shots = {
   mountain: 'M1/biomes_taiga.png', taiga: 'M1/daynight_night.png', bog: 'M1/light_cave.png',
   frost: 'M1/biomes_taiga_2.png', deep: 'M1/daynight_dusk.png', sunset: 'showcase/M0_horizon.png',
   peers: 'M2/peers_01.png', dawn: 'M1/daynight_dawn.png', terrain: 'M1/terrain_01.png',
+  hotbar: 'showcase/M3_hotbar_world.png', recipes: 'showcase/M3_recipe_book.png', grave: 'showcase/M3_death_grave.png',
+  skilltree: 'showcase/M4_skill_tree.png', farm: 'showcase/M5_farm_noon.png', reel: 'showcase/M5_reel.png',
+  nightfight: 'showcase/M6_night_hollow_archer.png', arrow: 'showcase/M6_arrow_hit.png',
+  furnace: 'showcase/M7_furnace_smelt.png', chest: 'showcase/M7_chest_door.png', home: 'showcase/M7_home_rested.png',
+  thornback: 'showcase/M8_thornback_summon.png', bosskill: 'showcase/M8_thornback_kill.png',
 };
 writeFileSync(join(data, 'shots.json'), JSON.stringify(shots, null, 1) + '\n');
 for (const [key, src] of Object.entries(shots)) {
   const from = join(game, 'captures', src);
   if (!existsSync(from)) { console.warn(`missing capture ${src}`); continue; }
-  execFileSync('magick', [from, '-resize', '1280x720', '-gravity', 'south', '-crop', '1280x692+0+0', '+repage', '-quality', '78', join(pub, 'shots', `${key}.webp`)]);
+  execFileSync('magick', [from, '-resize', '1280x720', '-gravity', 'south', '-crop', '1280x680+0+0', '+repage', '-quality', '78', join(pub, 'shots', `${key}.webp`)]);
 }
 for (const v of ['M0', 'M1']) {
   const from = join(game, 'captures/showcase', `${v}.mp4`);

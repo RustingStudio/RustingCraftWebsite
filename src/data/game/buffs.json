@@ -1,0 +1,1 @@
+{"cap":2,"buffs":[{"id":"well_fed","name":"Well Fed","regen":0.5,"stats":{}},{"id":"miners_breakfast","name":"Miner's Breakfast","regen":0,"stats":{"mining.speed":0.15}},{"id":"anglers_chowder","name":"Angler's Chowder","regen":0,"stats":{"fishing.luck":20}}]}

@@ -92,49 +92,151 @@
   },
   "devlog": { "title": "Devlog", "lede": "One post per milestone: what was built, what it measured and what broke.", "read": "Read", "back": "All posts", "enOnly": "" },
   "server": {
-    "title": "Servers", "lede": "One server, three ways to run it. Solo, co-op and dedicated share the same code.",
-    "planned": "Joining by address works in development builds. Room codes, chat and the server list come later in the plan.",
+    "title": "Servers", "lede": "Play alone, run a dedicated server, or join one. The world and every rule live on the server, even when you play alone.",
+    "planned": "Today you join by setting an address before launch. A join screen, room codes, chat and the server list come later. Inventories, vitals, graves, chests and furnaces are not saved yet: they reset when the server restarts.",
     "modes": [
-      ["Solo", "An integrated server runs in the game process with one player and no open port."],
-      ["Open to friends", "Opens the integrated server to the network. Friends join by address and port, or by a 6-character room code through a relay."],
-      ["Dedicated", "The same server code without a window. Run it on a spare machine for up to 8 players."]
+      ["Solo", "The game runs its own server in the same process. Your world is saved in your user data folder."],
+      ["Dedicated", "The same server code without a window, for up to 8 players by default. It saves edited chunks on a timer and on exit."],
+      ["Join", "Point the game at a server's address and pick a name. The server and every player must run the same build."]
     ],
-    "configTitle": "server.json", "configLede": "Every field and its default.",
+    "runTitle": "Run it", "runLede": "From the game's project folder, with a development build.",
+    "run": [
+      ["Play alone", "rusting run . --release"],
+      ["Run a dedicated server", "rusting run . --release --server"],
+      ["Join a server", "HEARTHBLOCK_JOIN=192.168.1.20:25565 HEARTHBLOCK_NAME=Ann rusting run . --release"],
+      ["Use another config file", "HEARTHBLOCK_SERVER_CONFIG=~/hb-server.json"],
+      ["Keep the world in another folder", "RUSTING_USER_DATA=~/hb-server"],
+      ["Stop the server and save", "kill <pid>"]
+    ],
+    "configTitle": "server.json", "configLede": "Read from the project folder. Any key you leave out takes its default.",
+    "key": "Key", "default": "Default", "meaning": "Meaning",
     "config": [
-      ["name", "Server name in the list"], ["max_players", "8"], ["password", "Optional"], ["seed", "World seed"],
-      ["view_distance", "8 chunks sent per player"], ["simulation_distance", "6 chunks of crops, mobs and fluids around each player"],
-      ["difficulty", "Casual, Normal or Hardcore"], ["pvp", "Off"], ["mob_griefing", "Off"], ["xp_rate", "XP multiplier, 1.0"], ["keep_inventory", "Off"]
+      "Port the server listens on (1 to 65535).",
+      "Chunks sent around each player (2 to 16).",
+      "Players allowed at once (1 to 64). The next one is refused.",
+      "World seed. null uses --seed, or 1. A saved world keeps the seed it was made with.",
+      "Seconds between saves (10 to 3600).",
+      "\"casual\", \"normal\" or \"hardcore\".",
+      "Multiplies all skill XP (0.1 to 10)."
     ],
     "rulesTitle": "The server owns the world",
     "rules": [
-      "Clients send inputs and requests; the server checks reach, line of sight, tool, tier and rate before anything changes.",
-      "Movement is predicted on the client with the same collision code as the server, which corrects it when it is more than 0.25 m off.",
-      "A block break that arrives earlier than 80% of the server's own break time is rejected.",
-      "Chunks stream nearest first under a byte budget per player: 256 KB/s on a LAN, 96 KB/s over the internet.",
-      "Your skills, inventory and position are kept by the server under your player id, so you get them back when you return."
+      "Clients send inputs and requests. The server checks reach, tool, tier and rate before anything changes.",
+      "Movement is predicted on the client with the same collision code as the server, and the server corrects it when it drifts.",
+      "A block break that arrives too early for the server's own break time is rejected.",
+      "Chunks stream to each player nearest first.",
+      "A client whose game data differs from the server's is refused, with the reason."
     ],
     "adminTitle": "Admin commands", "adminLede": "For the host and listed admin ids only."
   },
   "media": { "title": "Media", "lede": "Captures straight from the game, as it is now. Early milestones look plain: the built-in shader look comes later.", "videos": "Showcase videos", "stills": "Captures", "caption": "Milestone" },
   "wiki": {
-    "title": "Wiki", "lede": "Blocks come from the game's own data files. The rest is the design as planned and will change as it is built.",
+    "title": "Wiki", "lede": "Blocks, items, recipes, mobs, the Thornback and all fourteen skill trees, built from the game's own data files. Only the world tiers are still the plan.",
     "dataNote": "",
-    "inGameNote": "From assets/data/blocks.json in the game.",
+    "inGameNote": "From the game's own data files, synced {date}.",
     "plannedNote": "From the design bible. Planned: numbers may change before they are in the game.",
+    "pendingNote": "* = not in the game yet.",
     "sections": {
-      "blocks": ["Blocks", "Every block in the game now, with its tool, tier and drops."],
-      "world": ["World", "Tiers, biomes and the ore table."],
-      "mobs": ["Mobs", "Hostile creatures and how they behave."],
-      "bosses": ["Bosses", "Five bosses, their offerings, attacks and the tiers they open."],
-      "skills": ["Skills", "The fourteen skill trees and what gives each one XP."]
+      "guide": ["Getting started", "Controls, your first day and the known limits."],
+      "blocks": ["Blocks", "Every block in the game, with its tool, tier and drops."],
+      "items": ["Items", "Tools, weapons, armour, food and materials."],
+      "crafting": ["Crafting", "Every recipe by station, what it needs, and furnace fuel."],
+      "survival": ["Survival", "Health, hunger, stamina, death, buffs and your home."],
+      "farming": ["Farming and fishing", "Crops, farmland and what bites in rivers and lakes."],
+      "mobs": ["Mobs", "Animals and hostiles: health, attacks, spawns and drops."],
+      "bosses": ["Bosses", "The Thornback in full, and the four bosses still planned."],
+      "skills": ["Skills", "The fourteen skill trees, their passives, unlocks and perks."],
+      "world": ["World", "Tiers, biomes and the ore table."]
     },
     "cols": {
       "block": "Block", "tool": "Tool", "tier": "Tier", "hardness": "Hardness", "drops": "Drops", "xp": "Skill XP", "light": "Light",
+      "item": "Item", "type": "Type", "speed": "Speed", "durability": "Durability", "damage": "Damage", "attackSpeed": "Attack speed", "reach": "Reach", "notes": "Notes",
+      "slot": "Slot", "armour": "Armour", "hunger": "Hunger", "saturation": "Saturation", "effect": "Effect", "kind": "Kind", "stack": "Stack",
+      "output": "Makes", "inputs": "From", "needs": "Needs", "fuel": "Fuel", "burn": "Burns for", "setting": "Rule", "value": "Value", "buff": "Buff",
+      "crop": "Crop", "seed": "Seed", "stages": "Stages", "grow": "Grows in", "yield": "Yield", "golden": "Golden", "catch": "Catch", "rarity": "Rarity", "chance": "Chance", "size": "Size", "difficulty": "Difficulty",
       "where": "Where", "biomes": "Biomes", "materials": "New materials", "boss": "Boss", "ore": "Ore", "height": "Height", "ring": "Ring",
       "mob": "Mob", "behaviour": "Behaviour", "offering": "Offering", "health": "Health", "attacks": "Phases and attacks", "trophy": "Trophy", "opens": "Opens",
-      "tree": "Tree"
+      "tree": "Tree", "passives": "Per level", "unlocks": "Unlocks (level)", "specs": "Specialisations", "perk": "Perk", "level": "Level", "cost": "Points", "branch": "Branch"
     },
-    "unbreakable": "unbreakable", "none": "—"
+    "heads": {
+      "tools": "Tools", "weapons": "Weapons", "armour": "Armour", "food": "Food", "materials": "Materials and blocks", "fuel": "Furnace fuel",
+      "vitals": "Vitals", "buffs": "Buffs and poison", "home": "Home and Rested", "crops": "Crops", "farmland": "Farmland and fishing", "water": "Fishing: {water}",
+      "hostile": "Hostile", "animals": "Animals", "plannedMobs": "More mobs", "plannedBosses": "More bosses", "rules": "Rules", "trees": "Skill trees", "perks": "{tree} perks"
+    },
+    "kv": {
+      "health": ["Health", "{hearts} hearts ({half} half hearts)"],
+      "hunger": ["Hunger", "{max} points. At 0 you lose 1 health every {starve} s."],
+      "regen": ["Regeneration", "1 health every {s} s while hunger is at least {h}"],
+      "stamina": ["Stamina", "{max}. Sprinting costs {sprint} per second and a jump {jump}. It refills {regen} per second after {delay} s."],
+      "breath": ["Breath", "{s} s under water, then {dmg} damage every {i} s"],
+      "fall": ["Falling", "A fall of more than {safe} blocks hurts."],
+      "lava": ["Lava", "{dmg} damage every {i} s"],
+      "grave": ["Death", "Your items stay in a grave. Only you can open it for {min} minutes."],
+      "ground": ["Dropped items", "Picked up within {r} m after {d} s. Gone after {min} minutes."],
+      "station": ["Stations", "A station counts within {r} blocks of you."],
+      "buffCap": ["Buffs at once", "{cap}"],
+      "poison": ["Poison", "{foods}: {pct} chance. {dmg} damage every {every} s for {s} s."],
+      "home": ["Home", "A closed space around a hearth: at most {air} air blocks, at most {sky} opening to the sky, within {r} blocks of the hearth."],
+      "comfort": ["Comfort", "Up to {cap}, from: {blocks}"],
+      "rested": ["Rested", "Sleep in a bed at home: {min} minutes plus 1 minute per comfort point. Health regeneration +{bonus}%."],
+      "homeXp": ["Building XP", "{first} for your first home, plus {per} per comfort point"],
+      "till": ["Tilling", "A hoe turns {blocks} into farmland."],
+      "water": ["Water", "Farmland within {r} blocks of water stays wet. Dry farmland turns back to dirt after {min} minutes."],
+      "golden": ["Golden crops", "{pct} chance per harvest"],
+      "catchup": ["Away from home", "Crops in unloaded chunks catch up on up to {h} hours of growth."],
+      "bite": ["Bite", "After {min} to {max} s. Hook it within {w} s."],
+      "cast": ["Line", "Casts up to {cast} blocks. The line breaks past {leash} blocks."],
+      "altar": ["Altar", "On a stone-brick disc in a cleared arena, 160 to 400 m from spawn"],
+      "offering": ["Offering", "{items}"],
+      "bossHealth": ["Health", "{hp}, +{extra}% per extra player"],
+      "sweep": ["Tusk sweep", "{dmg} damage in a {arc}° arc, {reach} m reach, {w} s wind-up"],
+      "charge": ["Charge", "{dmg} damage, from {min} to {max} m away, {w} s wind-up, at most every {cd} s"],
+      "ring": ["Thorn ring", "Below {at}% health: {dmg} damage within {r} m every {every} s, {w} s wind-up"],
+      "leash": ["Leash", "Stays within {r} m. Resets after {s} s with no player near."],
+      "loot": ["Loot", "{items}"],
+      "trophy": ["Trophy", "{trophy}, for everyone who hit it"],
+      "firstKill": ["First kill", "+{points} skill points and {xp} discovery XP"],
+      "opens": ["Opens", "{recipes}"],
+      "points": ["Skill points", "{start} at the start, +{per} per level, +{five} more every 5 levels, +{boss} for each first boss kill"],
+      "unlock": ["Unlocking a tree", "{cost} points"],
+      "levels": ["Levels", "Player level up to {cap}. Each skill up to {max}."],
+      "discoveries": ["Discovery XP", "New block {block}, item {item}, recipe {recipe}, fish {fish}, biome {biome}, structure {structure}"],
+      "locked": ["Locked trees", "Tools of a locked tree work at {pct}% speed."],
+      "specs": ["Specialisations", "Slots open at skill level {slots}. The third costs {cost} points. Each grows up to level {max}."],
+      "death": ["Death", "Lose {normal}% of skill XP on Normal, {hard}% on Hardcore."],
+      "respec": ["Respec", "Once every {h} hour. You get back {pct}% of your points."]
+    },
+    "guide": {
+      "controlsTitle": "Controls", "key": "Key", "action": "Action",
+      "controls": [
+        ["Mouse", "Look around (click the window first)"], ["Esc", "Free the mouse"], ["W A S D", "Walk (or the arrow keys)"], ["Space", "Jump"], ["Shift", "Sprint"],
+        ["Left mouse (hold)", "Break, attack"], ["Right mouse", "Place, or use a station, chest, door, bed or altar"],
+        ["E", "Inventory and crafting"], ["K", "Skills"], ["Q", "Drop the held item"], ["1–9", "Pick a hotbar slot"]
+      ],
+      "craftTip": "To craft, open the inventory (E) and press a recipe's Make button. Hold Shift to make up to 64. \"Can craft\" hides what you cannot make yet. A station must be within 4 blocks of you.",
+      "dayTitle": "Your first day", "dayLede": "A day lasts 20 minutes. Night starts at minute 14, and hostile creatures come out with it.",
+      "day": [
+        "Punch trees for logs (5 is enough). Make planks (1 log gives 4), then sticks (2 planks give 4).",
+        "Make a crude workbench from 4 planks and place it.",
+        "Dig gravel. About 1 in 7 drops flint. Get 2 flint.",
+        "At the crude workbench, make a flint pickaxe (2 flint and 2 sticks).",
+        "Open Skills (K) and unlock Crafting, then Smithing. You start with 2 points, an unlock costs 2, and each level gives another point.",
+        "Mine stone. Make a workbench (6 planks and 2 stone), then a furnace (8 stone) at the workbench. A stone sword is 2 stone and 1 stick.",
+        "When night comes, dig in: go 2 or 3 blocks down and put a block over your head. Climb out at dawn.",
+        "Mine copper and tin ore. Next to the furnace, make copper and tin ingots. Planks, logs or coal in your inventory burn as fuel.",
+        "Bronze needs Smithing 5, and smelting gives Smithing XP. 3 copper ingots and 1 tin ingot make 3 bronze ingots.",
+        "Make an anvil (4 copper ingots and 6 stone) and, at the anvil, a bronze sword (2 bronze ingots and 1 stick).",
+        "Break tall grass for berries and seeds. Hunt pigs, cows, sheep or chickens for raw meat.",
+        "Find the altar on a stone-brick disc 160 to 400 m from spawn. Offer 8 raw meat and 4 berries to summon the Thornback. Watch for its charge, its sweep and, below half health, its thorn ring."
+      ],
+      "limitsTitle": "Known limits",
+      "limits": [
+        "Players who join all spawn on the same block.",
+        "There is no join screen or server list yet. You join with HEARTHBLOCK_JOIN.",
+        "Inventories, vitals, graves, chests and furnaces are not saved with the world. They reset when the server restarts."
+      ]
+    },
+    "unbreakable": "unbreakable", "none": "—", "known": "known from the start", "learnt": "learnt when you hold an input"
   },
   "footer": {
     "about": "A voxel survival game by RustingStudio, built on RustingEngine in Rust and Vulkan.",

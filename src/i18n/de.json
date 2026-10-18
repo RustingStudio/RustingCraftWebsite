@@ -92,49 +92,151 @@
   },
   "devlog": { "title": "Devlog", "lede": "Ein Beitrag pro Meilenstein: was gebaut wurde, was gemessen wurde und was kaputtging.", "read": "Lesen", "back": "Alle Beiträge", "enOnly": "Die Devlog-Beiträge sind auf Englisch." },
   "server": {
-    "title": "Server", "lede": "Ein Server, drei Arten, ihn zu starten. Solo, Koop und dediziert teilen denselben Code.",
-    "planned": "Beitreten per Adresse funktioniert in Entwicklungs-Builds. Raumcodes, Chat und die Serverliste kommen später im Plan.",
+    "title": "Server", "lede": "Allein spielen, einen dedizierten Server starten oder einem beitreten. Die Welt und alle Regeln liegen beim Server, auch wenn du allein spielst.",
+    "planned": "Heute trittst du bei, indem du vor dem Start eine Adresse setzt. Ein Beitrittsbildschirm, Raumcodes, Chat und die Serverliste kommen später. Inventare, Werte, Gräber, Truhen und Öfen werden noch nicht gespeichert: Sie sind nach einem Serverneustart weg.",
     "modes": [
-      ["Solo", "Ein integrierter Server läuft im Spielprozess, mit einem Spieler und ohne offenen Port."],
-      ["Für Freunde öffnen", "Öffnet den integrierten Server fürs Netz. Freunde treten per Adresse und Port bei oder mit einem 6-stelligen Raumcode über ein Relay."],
-      ["Dediziert", "Derselbe Servercode ohne Fenster. Starte ihn auf einem freien Rechner für bis zu 8 Spieler."]
+      ["Solo", "Das Spiel startet seinen eigenen Server im selben Prozess. Deine Welt liegt in deinem Benutzerdatenordner."],
+      ["Dediziert", "Derselbe Servercode ohne Fenster, standardmäßig für bis zu 8 Spieler. Er speichert geänderte Chunks regelmäßig und beim Beenden."],
+      ["Beitreten", "Gib dem Spiel die Adresse eines Servers und einen Namen. Server und alle Spieler brauchen denselben Build."]
     ],
-    "configTitle": "server.json", "configLede": "Jedes Feld und sein Standardwert.",
+    "runTitle": "Starten", "runLede": "Aus dem Projektordner des Spiels, mit einem Entwicklungs-Build.",
+    "run": [
+      ["Allein spielen", "rusting run . --release"],
+      ["Dedizierten Server starten", "rusting run . --release --server"],
+      ["Einem Server beitreten", "HEARTHBLOCK_JOIN=192.168.1.20:25565 HEARTHBLOCK_NAME=Ann rusting run . --release"],
+      ["Andere Konfigurationsdatei", "HEARTHBLOCK_SERVER_CONFIG=~/hb-server.json"],
+      ["Welt in einem anderen Ordner", "RUSTING_USER_DATA=~/hb-server"],
+      ["Server beenden und speichern", "kill <pid>"]
+    ],
+    "configTitle": "server.json", "configLede": "Wird aus dem Projektordner gelesen. Jeder fehlende Schlüssel nimmt seinen Standardwert.",
+    "key": "Schlüssel", "default": "Standard", "meaning": "Bedeutung",
     "config": [
-      ["name", "Servername in der Liste"], ["max_players", "8"], ["password", "Optional"], ["seed", "Welt-Seed"],
-      ["view_distance", "8 Chunks pro Spieler"], ["simulation_distance", "6 Chunks mit Pflanzen, Monstern und Flüssigkeiten um jeden Spieler"],
-      ["difficulty", "Casual, Normal oder Hardcore"], ["pvp", "Aus"], ["mob_griefing", "Aus"], ["xp_rate", "XP-Faktor, 1.0"], ["keep_inventory", "Aus"]
+      "Port, auf dem der Server lauscht (1 bis 65535).",
+      "Chunks, die um jeden Spieler gesendet werden (2 bis 16).",
+      "Spieler gleichzeitig (1 bis 64). Der nächste wird abgewiesen.",
+      "Welt-Seed. null nimmt --seed oder 1. Eine gespeicherte Welt behält ihren Seed.",
+      "Sekunden zwischen Speicherungen (10 bis 3600).",
+      "\"casual\", \"normal\" oder \"hardcore\".",
+      "Multipliziert alle Skill-XP (0,1 bis 10)."
     ],
     "rulesTitle": "Der Server besitzt die Welt",
     "rules": [
-      "Clients senden Eingaben und Anfragen; der Server prüft Reichweite, Sichtlinie, Werkzeug, Stufe und Rate, bevor sich etwas ändert.",
-      "Bewegung wird im Client mit demselben Kollisionscode wie auf dem Server vorhergesagt; der Server korrigiert ab 0,25 m Abweichung.",
-      "Ein Abbau, der früher als nach 80 % der Abbauzeit des Servers ankommt, wird abgelehnt.",
-      "Chunks kommen die nächsten zuerst, mit einem Byte-Budget pro Spieler: 256 KB/s im LAN, 96 KB/s übers Internet.",
-      "Skills, Inventar und Position bewahrt der Server unter deiner Spieler-ID auf, du bekommst sie bei der Rückkehr zurück."
+      "Clients senden Eingaben und Anfragen. Der Server prüft Reichweite, Werkzeug, Stufe und Rate, bevor sich etwas ändert.",
+      "Bewegung wird im Client mit demselben Kollisionscode wie auf dem Server vorhergesagt; der Server korrigiert Abweichungen.",
+      "Ein Abbau, der für die Abbauzeit des Servers zu früh ankommt, wird abgelehnt.",
+      "Chunks kommen bei jedem Spieler die nächsten zuerst.",
+      "Ein Client mit anderen Spieldaten als der Server wird abgewiesen, mit Grund."
     ],
     "adminTitle": "Admin-Befehle", "adminLede": "Nur für den Host und eingetragene Admin-IDs."
   },
   "media": { "title": "Medien", "lede": "Aufnahmen direkt aus dem Spiel, so wie es jetzt ist. Frühe Meilensteine sehen schlicht aus: Der eingebaute Shader-Look kommt später.", "videos": "Showcase-Videos", "stills": "Aufnahmen", "caption": "Meilenstein" },
   "wiki": {
-    "title": "Wiki", "lede": "Blöcke stammen aus den Datendateien des Spiels. Der Rest ist das geplante Design und ändert sich beim Bauen.",
+    "title": "Wiki", "lede": "Blöcke, Gegenstände, Rezepte, Monster, der Thornback und alle vierzehn Skillbäume, gebaut aus den Datendateien des Spiels. Nur die Weltstufen sind noch Plan.",
     "dataNote": "Spieldaten bleiben auf Englisch, bis das Spiel selbst übersetzt ist.",
-    "inGameNote": "Aus assets/data/blocks.json im Spiel.",
+    "inGameNote": "Aus den Datendateien des Spiels, Stand {date}.",
     "plannedNote": "Aus dem Design-Dokument. Geplant: Zahlen können sich ändern, bevor sie im Spiel sind.",
+    "pendingNote": "* = noch nicht im Spiel.",
     "sections": {
-      "blocks": ["Blöcke", "Jeder Block, den das Spiel jetzt hat, mit Werkzeug, Stufe und Drops."],
-      "world": ["Welt", "Stufen, Biome und die Erztabelle."],
-      "mobs": ["Monster", "Feindliche Kreaturen und ihr Verhalten."],
-      "bosses": ["Bosse", "Fünf Bosse, ihre Opfergaben, Angriffe und die Stufen, die sie öffnen."],
-      "skills": ["Skills", "Die vierzehn Skillbäume und was jedem XP gibt."]
+      "guide": ["Erste Schritte", "Steuerung, dein erster Tag und die bekannten Grenzen."],
+      "blocks": ["Blöcke", "Jeder Block im Spiel, mit Werkzeug, Stufe und Drops."],
+      "items": ["Gegenstände", "Werkzeuge, Waffen, Rüstung, Essen und Materialien."],
+      "crafting": ["Herstellen", "Jedes Rezept nach Station, was es braucht, und Ofenbrennstoff."],
+      "survival": ["Überleben", "Leben, Hunger, Ausdauer, Tod, Buffs und dein Zuhause."],
+      "farming": ["Landwirtschaft und Angeln", "Pflanzen, Ackerland und was in Flüssen und Seen anbeißt."],
+      "mobs": ["Monster", "Tiere und Feinde: Leben, Angriffe, Spawns und Drops."],
+      "bosses": ["Bosse", "Der Thornback im Detail und die vier geplanten Bosse."],
+      "skills": ["Skills", "Die vierzehn Skillbäume mit Passiven, Freischaltungen und Perks."],
+      "world": ["Welt", "Stufen, Biome und die Erztabelle."]
     },
     "cols": {
       "block": "Block", "tool": "Werkzeug", "tier": "Stufe", "hardness": "Härte", "drops": "Drops", "xp": "Skill-XP", "light": "Licht",
+      "item": "Gegenstand", "type": "Art", "speed": "Tempo", "durability": "Haltbarkeit", "damage": "Schaden", "attackSpeed": "Angriffstempo", "reach": "Reichweite", "notes": "Hinweise",
+      "slot": "Platz", "armour": "Rüstung", "hunger": "Hunger", "saturation": "Sättigung", "effect": "Wirkung", "kind": "Typ", "stack": "Stapel",
+      "output": "Ergibt", "inputs": "Aus", "needs": "Braucht", "fuel": "Brennstoff", "burn": "Brenndauer", "setting": "Regel", "value": "Wert", "buff": "Buff",
+      "crop": "Pflanze", "seed": "Saat", "stages": "Stufen", "grow": "Wächst in", "yield": "Ertrag", "golden": "Golden", "catch": "Fang", "rarity": "Seltenheit", "chance": "Chance", "size": "Größe", "difficulty": "Schwierigkeit",
       "where": "Wo", "biomes": "Biome", "materials": "Neue Materialien", "boss": "Boss", "ore": "Erz", "height": "Höhe", "ring": "Ring",
       "mob": "Monster", "behaviour": "Verhalten", "offering": "Opfergabe", "health": "Leben", "attacks": "Phasen und Angriffe", "trophy": "Trophäe", "opens": "Öffnet",
-      "tree": "Baum"
+      "tree": "Baum", "passives": "Pro Stufe", "unlocks": "Schaltet frei (Stufe)", "specs": "Spezialisierungen", "perk": "Perk", "level": "Stufe", "cost": "Punkte", "branch": "Zweig"
     },
-    "unbreakable": "unzerstörbar", "none": "—"
+    "heads": {
+      "tools": "Werkzeuge", "weapons": "Waffen", "armour": "Rüstung", "food": "Essen", "materials": "Materialien und Blöcke", "fuel": "Ofenbrennstoff",
+      "vitals": "Werte", "buffs": "Buffs und Gift", "home": "Zuhause und Ausgeruht", "crops": "Pflanzen", "farmland": "Ackerland und Angeln", "water": "Angeln: {water}",
+      "hostile": "Feindlich", "animals": "Tiere", "plannedMobs": "Weitere Monster", "plannedBosses": "Weitere Bosse", "rules": "Regeln", "trees": "Skillbäume", "perks": "Perks: {tree}"
+    },
+    "kv": {
+      "health": ["Leben", "{hearts} Herzen ({half} halbe Herzen)"],
+      "hunger": ["Hunger", "{max} Punkte. Bei 0 verlierst du alle {starve} s 1 Leben."],
+      "regen": ["Regeneration", "1 Leben alle {s} s, solange Hunger mindestens {h} ist"],
+      "stamina": ["Ausdauer", "{max}. Sprinten kostet {sprint} pro Sekunde, ein Sprung {jump}. Sie füllt sich nach {delay} s mit {regen} pro Sekunde."],
+      "breath": ["Atem", "{s} s unter Wasser, dann {dmg} Schaden alle {i} s"],
+      "fall": ["Fallen", "Ein Sturz über mehr als {safe} Blöcke tut weh."],
+      "lava": ["Lava", "{dmg} Schaden alle {i} s"],
+      "grave": ["Tod", "Deine Gegenstände bleiben in einem Grab. {min} Minuten lang kannst nur du es öffnen."],
+      "ground": ["Fallengelassenes", "Aufgehoben im Umkreis von {r} m nach {d} s. Weg nach {min} Minuten."],
+      "station": ["Stationen", "Eine Station zählt im Umkreis von {r} Blöcken."],
+      "buffCap": ["Buffs gleichzeitig", "{cap}"],
+      "poison": ["Gift", "{foods}: {pct} Chance. {dmg} Schaden alle {every} s für {s} s."],
+      "home": ["Zuhause", "Ein geschlossener Raum um einen Herd: höchstens {air} Luftblöcke, höchstens {sky} Öffnung zum Himmel, im Umkreis von {r} Blöcken um den Herd."],
+      "comfort": ["Komfort", "Bis {cap}, durch: {blocks}"],
+      "rested": ["Ausgeruht", "Im Bett zu Hause schlafen: {min} Minuten plus 1 Minute pro Komfortpunkt. Lebensregeneration +{bonus} %."],
+      "homeXp": ["Bau-XP", "{first} für dein erstes Zuhause, plus {per} pro Komfortpunkt"],
+      "till": ["Pflügen", "Eine Hacke macht aus {blocks} Ackerland."],
+      "water": ["Wasser", "Ackerland im Umkreis von {r} Blöcken um Wasser bleibt feucht. Trockenes Ackerland wird nach {min} Minuten wieder Erde."],
+      "golden": ["Goldene Pflanzen", "{pct} Chance pro Ernte"],
+      "catchup": ["Unterwegs", "Pflanzen in entladenen Chunks holen bis zu {h} Stunden Wachstum nach."],
+      "bite": ["Biss", "Nach {min} bis {max} s. Anschlagen innerhalb von {w} s."],
+      "cast": ["Schnur", "Wurf bis {cast} Blöcke. Über {leash} Blöcke reißt die Schnur."],
+      "altar": ["Altar", "Auf einer Steinziegelscheibe in einer geräumten Arena, 160 bis 400 m vom Spawn"],
+      "offering": ["Opfergabe", "{items}"],
+      "bossHealth": ["Leben", "{hp}, +{extra} % pro weiterem Spieler"],
+      "sweep": ["Hauerschlag", "{dmg} Schaden in einem {arc}°-Bogen, {reach} m Reichweite, {w} s Ausholen"],
+      "charge": ["Ansturm", "{dmg} Schaden, aus {min} bis {max} m, {w} s Ausholen, höchstens alle {cd} s"],
+      "ring": ["Dornenring", "Unter {at} % Leben: {dmg} Schaden im Umkreis von {r} m alle {every} s, {w} s Ausholen"],
+      "leash": ["Leine", "Bleibt im Umkreis von {r} m. Setzt sich nach {s} s ohne Spieler in der Nähe zurück."],
+      "loot": ["Beute", "{items}"],
+      "trophy": ["Trophäe", "{trophy}, für alle, die ihn getroffen haben"],
+      "firstKill": ["Erster Sieg", "+{points} Skillpunkte und {xp} Entdeckungs-XP"],
+      "opens": ["Öffnet", "{recipes}"],
+      "points": ["Skillpunkte", "{start} zu Beginn, +{per} pro Stufe, +{five} mehr alle 5 Stufen, +{boss} für jeden ersten Bosssieg"],
+      "unlock": ["Baum freischalten", "{cost} Punkte"],
+      "levels": ["Stufen", "Spielerstufe bis {cap}. Jeder Skill bis {max}."],
+      "discoveries": ["Entdeckungs-XP", "Neuer Block {block}, Gegenstand {item}, Rezept {recipe}, Fisch {fish}, Biom {biome}, Bauwerk {structure}"],
+      "locked": ["Gesperrte Bäume", "Werkzeuge eines gesperrten Baums arbeiten mit {pct} % Tempo."],
+      "specs": ["Spezialisierungen", "Plätze öffnen sich bei Skillstufe {slots}. Der dritte kostet {cost} Punkte. Jede wächst bis Stufe {max}."],
+      "death": ["Tod", "Verlust von {normal} % der Skill-XP auf Normal, {hard} % auf Hardcore."],
+      "respec": ["Neu verteilen", "Einmal alle {h} Stunde. Du bekommst {pct} % deiner Punkte zurück."]
+    },
+    "guide": {
+      "controlsTitle": "Steuerung", "key": "Taste", "action": "Aktion",
+      "controls": [
+        ["Maus", "Umsehen (erst ins Fenster klicken)"], ["Esc", "Maus freigeben"], ["W A S D", "Gehen (oder Pfeiltasten)"], ["Leertaste", "Springen"], ["Shift", "Sprinten"],
+        ["Linke Maustaste (halten)", "Abbauen, angreifen"], ["Rechte Maustaste", "Platzieren, oder Station, Truhe, Tür, Bett oder Altar benutzen"],
+        ["E", "Inventar und Herstellen"], ["K", "Skills"], ["Q", "Gehaltenen Gegenstand fallen lassen"], ["1–9", "Hotbar-Platz wählen"]
+      ],
+      "craftTip": "Zum Herstellen das Inventar öffnen (E) und beim Rezept auf „Make“ drücken. Mit Shift entstehen bis zu 64. „Can craft“ blendet aus, was du noch nicht herstellen kannst. Eine Station muss höchstens 4 Blöcke entfernt sein.",
+      "dayTitle": "Dein erster Tag", "dayLede": "Ein Tag dauert 20 Minuten. Die Nacht beginnt bei Minute 14, und mit ihr kommen feindliche Kreaturen.",
+      "day": [
+        "Schlag Bäume für Stämme (5 reichen). Mach Bretter (1 Stamm gibt 4), dann Stöcke (2 Bretter geben 4).",
+        "Bau eine einfache Werkbank aus 4 Brettern und stell sie auf.",
+        "Grab Kies. Etwa 1 von 7 Blöcken gibt Feuerstein. Sammle 2 Feuerstein.",
+        "Mach an der einfachen Werkbank eine Feuersteinspitzhacke (2 Feuerstein und 2 Stöcke).",
+        "Öffne Skills (K) und schalte Crafting, dann Smithing frei. Du startest mit 2 Punkten, eine Freischaltung kostet 2, jede Stufe gibt einen weiteren Punkt.",
+        "Bau Stein ab. Mach eine Werkbank (6 Bretter und 2 Stein), dann an ihr einen Ofen (8 Stein). Ein Steinschwert sind 2 Stein und 1 Stock.",
+        "Wenn die Nacht kommt, grab dich ein: 2 oder 3 Blöcke nach unten und einen Block über den Kopf. Bei Sonnenaufgang wieder raus.",
+        "Bau Kupfer- und Zinnerz ab. Mach am Ofen Kupfer- und Zinnbarren. Bretter, Stämme oder Kohle im Inventar brennen als Brennstoff.",
+        "Bronze braucht Smithing 5, und Schmelzen gibt Smithing-XP. 3 Kupferbarren und 1 Zinnbarren ergeben 3 Bronzebarren.",
+        "Mach einen Amboss (4 Kupferbarren und 6 Stein) und daran ein Bronzeschwert (2 Bronzebarren und 1 Stock).",
+        "Hohes Gras gibt Beeren und Samen. Jag Schweine, Kühe, Schafe oder Hühner für rohes Fleisch.",
+        "Finde den Altar auf einer Steinziegelscheibe 160 bis 400 m vom Spawn. Opfere 8 rohes Fleisch und 4 Beeren, um den Thornback zu rufen. Achte auf seinen Ansturm, seinen Hieb und, unter halbem Leben, seinen Dornenring."
+      ],
+      "limitsTitle": "Bekannte Grenzen",
+      "limits": [
+        "Alle Spieler, die beitreten, spawnen auf demselben Block.",
+        "Es gibt noch keinen Beitrittsbildschirm und keine Serverliste. Du trittst mit HEARTHBLOCK_JOIN bei.",
+        "Inventare, Werte, Gräber, Truhen und Öfen werden nicht mit der Welt gespeichert. Nach einem Serverneustart sind sie weg."
+      ]
+    },
+    "unbreakable": "unzerstörbar", "none": "—", "known": "von Anfang an bekannt", "learnt": "gelernt, sobald du eine Zutat hältst"
   },
   "footer": {
     "about": "Ein Voxel-Survival-Spiel von RustingStudio, gebaut auf RustingEngine in Rust und Vulkan.",

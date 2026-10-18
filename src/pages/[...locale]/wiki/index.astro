@@ -12,7 +12,7 @@ const d = t(locale), w = d.wiki;
   <div class="rc-grid">
     {SECTIONS.map((s) => (
       <a class="gr-card" href={href(locale, `/wiki/${s.id}/`)} data-theme={s.biome}>
-        <small>{s.id === 'blocks' ? d.status.inGame : d.status.planned}</small>
+        <small>{'planned' in s ? d.status.planned : d.status.inGame}</small>
         <b>{w.sections[s.id][0]}</b>
         <p>{w.sections[s.id][1]}</p>
       </a>

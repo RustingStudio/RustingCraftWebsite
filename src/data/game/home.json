@@ -1,0 +1,1 @@
+{"max_air":2048,"max_sky_openings":1,"sky_scan":64,"hearth_radius":16,"comfort_cap":20,"rested_base_min":10,"regen_bonus":0.5,"xp_first_home":25,"xp_per_comfort":10,"recheck_ticks":100,"hearths":["hearth"],"doors":["door","door_open"],"beds":["bed"],"decor":["bed","torch","campfire","hearth","chest","workbench","crude_workbench","furnace","anvil","bluebell","marigold","door"]}

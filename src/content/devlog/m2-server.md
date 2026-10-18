@@ -1,5 +1,5 @@
 ---
-title: "M2 in progress: one server for everyone"
+title: "M2 done: one server for everyone"
 date: 2026-10-18
 milestone: 2
 description: "Solo and multiplayer now run on one code path: your own game is a client of a server in the same process."
@@ -27,9 +27,12 @@ server runs inside your game and you are its first client.
   Walking and jumping with no lag needs no corrections at all; a 10 cm
   correction smooths out in about six ticks.
 
-## What is next
+## How it closed
 
-A test at a 150 ms round trip with 2% packet loss, then a dedicated server,
-then two people building the same house.
+The last iterations added a dedicated server with no window, `server.json`
+settings, region-file saves on a timer and on exit, and a script that starts
+a server and two real clients: one breaks a block and the other has to see it
+go. Players are still plain two-box figures, and everyone spawns on the same
+block.
 
-M2 is at iteration 6 of 12.
+M2 closed at iteration 8 of 12.

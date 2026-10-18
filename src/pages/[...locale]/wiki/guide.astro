@@ -1,0 +1,29 @@
+---
+import Page from '../../../layouts/Page.astro';
+import Icon from '../../../components/Icon.astro';
+import { localePaths, localeOf, t, href } from '../../../i18n';
+import { SECTIONS } from '../../../data/wiki';
+export const getStaticPaths = localePaths;
+const locale = localeOf(Astro.params.locale);
+const d = t(locale), w = d.wiki, g = w.guide;
+const [title, lede] = w.sections.guide;
+---
+<Page locale={locale} active="wiki" biome="meadow" kicker={d.status.inGame} title={title} lede={lede}>
+  <nav class="gr-crumbs" slot="crumbs"><a href={href(locale, '/wiki/')}>{w.title}</a><Icon name="chevronRight" /><span>{title}</span></nav>
+  <h2 class="gr-section-h">{g.controlsTitle}</h2>
+  <div class="rc-table" data-stack>
+    <table>
+      <thead><tr><th>{g.key}</th><th>{g.action}</th></tr></thead>
+      <tbody>{g.controls.map(([key, action]) => <tr><td data-label={g.key}><kbd>{key}</kbd></td><td data-label={g.action}>{action}</td></tr>)}</tbody>
+    </table>
+  </div>
+  <p class="rc-note"><Icon name="info" />{g.craftTip}</p>
+  <h2 class="gr-section-h">{g.dayTitle}</h2>
+  <p class="rc-lede">{g.dayLede}</p>
+  <ol class="rc-steps">{g.day.map((step) => <li><p>{step}</p></li>)}</ol>
+  <h2 class="gr-section-h">{g.limitsTitle}</h2>
+  <ul class="rc-steps">{g.limits.map((limit) => <li><p>{limit}</p></li>)}</ul>
+  <nav class="gr-panel-cta">
+    {SECTIONS.filter((s) => s.id !== 'guide').map((s) => <a class="gr-btn gr-btn-secondary gr-btn-sm" href={href(locale, `/wiki/${s.id}/`)}>{w.sections[s.id][0]}</a>)}
+  </nav>
+</Page>

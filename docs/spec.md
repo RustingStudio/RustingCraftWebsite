@@ -14,8 +14,8 @@ accent dash, measured numbers with the hardware named.
 | `/download/` | Coming soon, platforms, what the first build will contain |
 | `/devlog/`, `/devlog/<slug>/` | Milestone posts (English for every locale) |
 | `/roadmap/` | Pass A milestones M0–M9 and Pass B, status from `PROGRESS.md` |
-| `/wiki/`, `/wiki/<section>/` | Blocks, world, mobs, bosses, skills, generated from game data |
-| `/server/` | Solo, open to friends, dedicated server, `server.json` |
+| `/wiki/`, `/wiki/guide/`, `/wiki/<section>/` | Getting started; blocks, items, crafting, survival, farming, mobs, bosses, skills from game data; world from the BIBLE |
+| `/server/` | Solo, dedicated, join; run commands and `server.json` |
 | `/media/` | Captures and showcase videos from the game |
 
 Every route exists three times: English at `/`, German at `/de/`, Russian at
@@ -74,7 +74,9 @@ frost `#bfe6ff`, deep `#ff7a3d`, sunset `#ffb86b`.
 - `npm run sync-game` (`scripts/sync-game.mjs`) reads the game folder
   (`GAME_DIR`, default `../RustingGames/hearthblock`) and the plan folder
   (`PLAN_DIR`, default `../RustingGames/prompts/hearthblock`):
-  - `assets/data/blocks.json` to `src/data/game/blocks.json` (in game);
+  - `assets/data/blocks.json` to `src/data/game/blocks.json` (in game), and
+    items, recipes, loot, mobs, bosses, crops, fish, foods, buffs, smelting,
+    tuning, home and skills as they are, minus `test_` entries;
   - the BIBLE tables (world tiers, ores, mobs, bosses) and the SKILLS
     trees to `src/data/game/design.json` (planned, marked so on the site);
   - the `PROGRESS.md` status line to `src/data/game/status.json`;

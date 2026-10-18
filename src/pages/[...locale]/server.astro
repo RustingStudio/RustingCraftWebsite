@@ -1,28 +1,39 @@
 ---
 import Page from '../../layouts/Page.astro';
 import Icon from '../../components/Icon.astro';
+import Tag from '../../components/Tag.astro';
 import { localePaths, localeOf, t } from '../../i18n';
 export const getStaticPaths = localePaths;
 const locale = localeOf(Astro.params.locale);
 const d = t(locale), p = d.server;
-// BIBLE §2: admin commands, for the host and listed admin ids only.
+// BIBLE §2: admin commands, for the host and listed admin ids only. Not in the game yet.
 const admin = ['/tp', '/give', '/xp', '/time', '/weather', '/kick', '/ban'];
+// PLAY.md: server.json keys and defaults. Meanings live in i18n under the same order.
+const config = [['port', '25565'], ['view_distance', '8'], ['max_players', '8'], ['seed', 'null'], ['autosave_seconds', '120'], ['difficulty', '"normal"'], ['xp_rate', '1.0']];
 ---
 <Page locale={locale} active="server" biome="taiga" kicker="RustingCraft" title={p.title} lede={p.lede}>
   <p class="rc-note"><Icon name="info" />{p.planned}</p>
   <div class="rc-grid">
     {p.modes.map(([name, text], i) => <div class="gr-card"><small>0{i + 1}</small><b>{name}</b><p>{text}</p></div>)}
   </div>
+  <h2 class="gr-section-h">{p.runTitle}</h2>
+  <p class="rc-lede">{p.runLede}</p>
+  <div class="rc-table" data-stack>
+    <table>
+      <tbody>{p.run.map(([text, cmd]) => <tr><td>{text}</td><td><code>{cmd}</code></td></tr>)}</tbody>
+    </table>
+  </div>
   <h2 class="gr-section-h">{p.rulesTitle}</h2>
   <ul class="rc-steps">{p.rules.map((rule) => <li><p>{rule}</p></li>)}</ul>
   <h2 class="gr-section-h"><code>{p.configTitle}</code></h2>
   <p class="rc-lede">{p.configLede}</p>
-  <div class="rc-table">
+  <div class="rc-table" data-stack>
     <table>
-      <tbody>{p.config.map(([key, text]) => <tr><td><code>{key}</code></td><td>{text}</td></tr>)}</tbody>
+      <thead><tr><th>{p.key}</th><th>{p.default}</th><th>{p.meaning}</th></tr></thead>
+      <tbody>{config.map(([key, def], i) => <tr><td data-label={p.key}><code>{key}</code></td><td data-label={p.default}><code>{def}</code></td><td data-label={p.meaning}>{p.config[i]}</td></tr>)}</tbody>
     </table>
   </div>
-  <h2 class="gr-section-h">{p.adminTitle}</h2>
+  <h2 class="gr-section-h">{p.adminTitle} <Tag>{d.status.planned}</Tag></h2>
   <p class="rc-lede">{p.adminLede}</p>
   <div class="gr-panel-tags">{admin.map((c) => <code class="gr-tag">{c}</code>)}</div>
 </Page>
