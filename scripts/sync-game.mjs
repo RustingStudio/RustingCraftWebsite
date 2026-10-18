@@ -70,7 +70,7 @@ const status = { pass: m[1], milestone: +m[2], name: m[3], state: m[4], iteratio
 writeFileSync(join(data, 'status.json'), JSON.stringify(status, null, 1) + '\n');
 
 // Atlas and block tiles, for the 3D scene and the wiki icons.
-copyFileSync(join(game, 'assets/textures/atlas.png'), join(pub, 'atlas.png'));
+copyFileSync(join(game, 'assets/textures/atlas.png'), join(data, 'atlas.png'));
 copyFileSync(join(game, 'assets/textures/atlas.json'), join(data, 'atlas.json'));
 for (const f of readdirSync(join(game, 'assets/textures/blocks'))) copyFileSync(join(game, 'assets/textures/blocks', f), join(pub, 'blocks', f));
 

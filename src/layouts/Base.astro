@@ -3,6 +3,8 @@ import '../styles/global.css';
 import '../styles/craft.css';
 import Icon from '../components/Icon.astro';
 import { LOCALES, t, asset, switchTo, type Locale } from '../i18n';
+// Hashed URL, so a re-synced atlas never pairs with a cached old image.
+import atlasUrl from '../data/game/atlas.png?url';
 interface Props { locale: Locale; title?: string; description?: string; biome?: string }
 const { locale, title, description, biome = 'meadow' } = Astro.props;
 const d = t(locale);
@@ -34,7 +36,7 @@ const og = new URL(asset('/og.png'), Astro.site);
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={og} />
   </head>
-  <body class="gr-root" data-atlas={asset('/game/atlas.png')}>
+  <body class="gr-root" data-atlas={atlasUrl}>
     <div class="rc-world" aria-hidden="true"><canvas id="rc-world"></canvas></div>
     <a class="gr-skip" href="#main">{d.meta.skip}</a>
     <slot />
